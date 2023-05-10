@@ -1,4 +1,4 @@
-package com.xm.datastructure.datastructure;
+package com.xm.datastructure;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

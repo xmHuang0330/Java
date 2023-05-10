@@ -1,4 +1,4 @@
-package com.xm.datastructure.datastructure;
+package com.xm.datastructure;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
