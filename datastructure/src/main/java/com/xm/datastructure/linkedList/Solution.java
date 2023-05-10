@@ -21,7 +21,7 @@ class Solution {
     if (head == null || head.getNext() == null) {
       return head;
     }
-    int pre,cur,next;
+    int cur,next;
     cur = head.getVal();
     ListNode newHead = removeDuplicateNodes(head.getNext());
     next = newHead.getVal();
