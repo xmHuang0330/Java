@@ -2,6 +2,8 @@ package com.xm.datastructure.linkedList;
 
 import com.xm.datastructure.pojo.ListNode;
 
+import java.util.HashSet;
+
 class Solution {
 
 
@@ -17,6 +19,11 @@ class Solution {
     return newHead;
   }
 
+  /**
+   * 只适合已排序单链表
+   * @param head
+   * @return
+   */
   public ListNode removeDuplicateNodes(ListNode head) {
     if (head == null || head.getNext() == null) {
       return head;
@@ -34,7 +41,7 @@ class Solution {
   }
 
   public static void main(String[] args) {
-    int[] arr = {1, 3, 3, 6, 8, 9};
+    int[] arr = {1, 3, 3,3, 6, 8, 9};
     ListNode listNode = new ListNode(arr);
     System.out.println("初始链表：" + listNode);
     //ListNode listNode1 = new Solution().reverseList(listNode);
