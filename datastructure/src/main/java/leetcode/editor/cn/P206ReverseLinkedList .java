@@ -65,13 +65,13 @@ class P206ReverseLinkedList{
 class Solution {
     public ListNode reverseList(ListNode head) {
 
-      if (head == null || head.getNext() == null) {
+      if (head == null || head.next == null) {
         return head;
       }
 
-      ListNode newHead = reverseList(head.getNext());
-      head.getNext().setNext(head);
-      head.setNext(null);
+      ListNode newHead = reverseList(head.next);
+      head.next.next = head;
+      head.next = null;
 
       return newHead;
     }

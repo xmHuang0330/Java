@@ -7,7 +7,7 @@ import java.util.HashSet;
 class Solution {
 
 
-  public ListNode reverseList(ListNode head) {
+  /*public ListNode reverseList(ListNode head) {
     System.out.println("初始链表：" + head);
     if (head == null || head.getNext() == null) {
       return head;
@@ -19,11 +19,11 @@ class Solution {
     return newHead;
   }
 
-  /**
+  *//**
    * 只适合已排序单链表
    * @param head
    * @return
-   */
+   *//*
   public ListNode removeDuplicateNodes(ListNode head) {
     if (head == null || head.getNext() == null) {
       return head;
@@ -47,5 +47,5 @@ class Solution {
     //ListNode listNode1 = new Solution().reverseList(listNode);
     ListNode listNode1 = new Solution().removeDuplicateNodes(listNode);
     System.out.println("去重后链表：" + listNode1);
-  }
+  }*/
 }

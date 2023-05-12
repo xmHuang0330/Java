@@ -7,21 +7,7 @@ public class ListNode {
 
   ListNode(int x) { val = x; }
 
-  public int getVal() {
-    return val;
-  }
 
-  public void setVal(int val) {
-    this.val = val;
-  }
-
-  public ListNode getNext() {
-    return next;
-  }
-
-  public void setNext(ListNode next) {
-    this.next = next;
-  }
 
   // 链表节点的构造函数
   // 使用arr为参数，创建一个链表，当前的ListNode为链表头节点
