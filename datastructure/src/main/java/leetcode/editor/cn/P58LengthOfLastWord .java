@@ -50,7 +50,7 @@ public class P58LengthOfLastWord{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int lengthOfLastWord(String s) {
-      /*int length = s.length();
+      int length = s.length();
       int size = 0;
       for (int i = length - 1; i >= 0; i--) {
         if (s.charAt(i) == ' ' && size == 0) {
@@ -61,7 +61,7 @@ class Solution {
           size++;
         }
       }
-      return size;*/
+      return size;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
