@@ -39,9 +39,9 @@ public class P344ReverseString{
 class Solution {
     public void reverseString(char[] s) {
       char a = 'a';
-      for (int i = 0,j = s.length -1; i < s.length; i++,j--) {
+      for (int i = 0, j = s.length - 1; i < s.length; i++, j--) {
         if (j <= i) {
-          break;
+          break;//循环到一半就好了
         }
         a = s[i];
         s[i] = s[j];
