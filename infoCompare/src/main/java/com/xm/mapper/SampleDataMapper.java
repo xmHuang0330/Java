@@ -9,7 +9,7 @@ import java.util.List;
 public interface SampleDataMapper {
     List<SampleData> findAll();
 
-    boolean save();
+    boolean save(SampleData sampleData);
 
     int insertBatch(List<SampleData> sampleDataList);
 }

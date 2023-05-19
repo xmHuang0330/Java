@@ -19,7 +19,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class dataInfoService {
+public class DataInfoService {
 
     @Autowired
     SampleDataMapper sampleDataMapper;
