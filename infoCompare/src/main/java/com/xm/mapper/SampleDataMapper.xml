@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 名称空间，指定对哪个接口进行映射-->
+<mapper namespace="com.xm.mapper.SampleDataMapper">
+    <!--
+        select 表示执行查询sql
+            id 唯一； 必须与接口中方法名称一致。
+            resultType 表示执行查询SQL封装的实体类对象。如果放回集合，只需要指定集合中元素的类型即可。
+            标签体中存放要执行的select语句 
+    -->
+    <resultMap id="dataResultMap" type="com.xm.entity.SampleData">
+        <result property="sampleName" column="sample_name"></result>
+        <result property="lane" column="lane"></result>
+        <result property="index" column="index_"></result>
+        <result property="tablet" column="tablet"></result>
+        <result property="well" column="well"></result>
+        <result property="mr36aLt" column="mr36a_lt"></result>
+        <result property="bglYLt" column="bgi_y_lt"></result>
+    </resultMap>
+
+    <insert id="save" parameterType="com.xm.entity.SampleData">
+        INSERT INTO basic VALUES ('dada','rerw',222,'fsf','fs',33,333)
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO basic (sample_name,lane,index_,tablet,well,bgi_y_lt,mr36a_lt) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.sampleName},#{item.lane},#{item.index},#{item.tablet},#{item.well},#{item.bglYLt},#{item.mr36aLt})
+        </foreach>
+    </insert>
+
+</mapper>
