@@ -31,14 +31,30 @@ public class P剑指 Offer 22LianBiaoZhongDaoShuDiKgeJieDianLcof{
  */
 class Solution {
     public ListNode getKthFromEnd(ListNode head, int k) {
-      ListNode former = head, latter = head;
+
+      ListNode formmer = head, latter = head;
+      for (int i = 0; i < k; i++) {
+        formmer = formmer.next;
+      }
+      while (formmer != null) {
+        formmer = formmer.next;
+        latter = latter.next;
+      }
+      return latter;
+
+
+
+
+
+
+      /*ListNode former = head, latter = head;
       for (int i = 0; i < k; i++)
         former = former.next;
       while (former != null) {
         former = former.next;
         latter = latter.next;
       }
-      return latter;
+      return latter;*/
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

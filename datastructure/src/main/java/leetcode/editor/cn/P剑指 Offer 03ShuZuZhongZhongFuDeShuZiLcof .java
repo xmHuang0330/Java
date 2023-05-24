@@ -26,14 +26,44 @@ import java.util.Set;
 
 //Java：数组中重复的数字
 public class P剑指 Offer 03ShuZuZhongZhongFuDeShuZiLcof{
-    public static void main(String[] args) {
-        Solution solution = new P剑指 Offer 03ShuZuZhongZhongFuDeShuZiLcof().new Solution();
-        // TO TEST
-    }
-    //leetcode submit region begin(Prohibit modification and deletion)
+public static void main(String[]args){
+  Solution solution=new P剑指 Offer 03ShuZuZhongZhongFuDeShuZiLcof().new Solution();
+  // TO TEST
+  }
+
+//leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public int findRepeatNumber(int[] nums) {
-      int i = 0;
+  public int findRepeatNumber(int[] nums) {
+    int i = 0;
+    int cur = 0;
+    int length = nums.length;
+    while (i < length) {
+      if (nums[i] == i) {
+        i++;
+        continue;
+      }
+      if (nums[nums[i]] == nums[i]) {
+        return nums[i];
+      }
+      cur = nums[i];
+      nums[i] = nums[cur];
+      nums[cur] = cur;
+    }
+    return -1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+      /*int i = 0;
       while (i < nums.length) {
         if (nums[i] == i) {
           i++;
@@ -46,7 +76,7 @@ class Solution {
         nums[i] = nums[temp];
         nums[temp] = temp;
       }
-      return -1;
+      return -1;*/
 
 
       /*Set<Integer> set = new HashSet<>();
@@ -59,7 +89,7 @@ class Solution {
         set.add(nums[i]);
       }
       return re;*/
-    }
+  }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 

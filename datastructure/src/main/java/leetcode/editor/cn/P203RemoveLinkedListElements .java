@@ -54,17 +54,32 @@ public class P203RemoveLinkedListElements{
  */
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-      if(head == null){
+      if (head == null) {
         return head;
       }
       head.next = removeElements(head.next,val);
-      /*if (head.val == val) {
+      return head.val == val ? head.next : head;
+
+
+
+
+
+
+
+
+
+
+      /*if(head == null){
+        return head;
+      }
+      head.next = removeElements(head.next,val);
+      *//*if (head.val == val) {
         return newHead;
       } else {
         head.next = newHead;
         return head;
-      }*/
-      return head.val == val ? head.next : head;
+      }*//*
+      return head.val == val ? head.next : head;*/
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

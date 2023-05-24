@@ -39,9 +39,10 @@ class Solution {
         l1.next = mergeTwoLists(l1.next, l2);
         return l1;
       } else {
-        l2.next = mergeTwoLists(l1, l2.next);
+        l2.next = mergeTwoLists(l2.next, l1);
         return l2;
       }
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -27,35 +27,37 @@ class Solution {
     public String replaceSpace(String s) {
 
       StringBuilder sb = new StringBuilder();
-
+      char c = ' ';
       int length = s.length();
       for (int i = 0; i < length; i++) {
-        if (s.charAt(i) == ' ') {
+        c = s.charAt(i);
+        if (c == ' ') {
           sb.append("%20");
         } else {
-          sb.append(s.charAt(i));
+          sb.append(c);
         }
       }
       return sb.toString();
 
-      /*//字符数组
-      int length = s.length();
-      char c = ' ';
-      int size = 0;
+
+
+
+
+      /*int length = s.length();
+      int j = 0;
       char[] arr = new char[length * 3];
       for (int i = 0; i < length; i++) {
-        c = s.charAt(i);
-        if (c == ' ') {
-          arr[size++] = '%';
-          arr[size++] = '2';
-          arr[size++] = '0';
+        if (s.charAt(i) == ' ') {
+          arr[j++] = '%';
+          arr[j++] = '2';
+          arr[j++] = '0';
         } else {
-          arr[size++] = c;
+          arr[j++] = s.charAt(i);
         }
       }
-      String newStr = new String(arr, 0, size);
-      return newStr;
-      */
+      String newStr = new String(arr, 0, j);
+      return newStr;*/
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

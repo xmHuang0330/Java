@@ -51,11 +51,21 @@ class Solution {
         return head;
       }
       head.next = deleteNode(head.next, val);
+      return head.val == val ? head.next : head;
+
+
+
+
+
+      /*if (head == null) {
+        return head;
+      }
+      head.next = deleteNode(head.next, val);
       if (head.val == val) {
         return head.next;
       } else {
         return head;
-      }
+      }*/
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

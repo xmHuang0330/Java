@@ -48,6 +48,7 @@ public class P83RemoveDuplicatesFromSortedList{
  */
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
+
       if (head == null || head.next == null) {
         return head;
       }
@@ -57,6 +58,22 @@ class Solution {
         newHead.next = null;
       }
       return head;
+
+
+
+
+
+
+
+      /*if (head == null || head.next == null) {
+        return head;
+      }
+      ListNode newHead = deleteDuplicates(head.next);
+      if (head.val == newHead.val) {
+        head.next = newHead.next;
+        newHead.next = null;
+      }
+      return head;*/
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

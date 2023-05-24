@@ -38,7 +38,29 @@ public class P344ReverseString{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void reverseString(char[] s) {
-      char a = 'a';
+
+      int length = s.length;
+      char cur = ' ';
+      for (int i = 0, j = length - 1; i < length; i++, j--) {
+        if (j < i) {
+          break;
+        }
+        cur = s[i];
+        s[i] = s[j];
+        s[j] = cur;
+      }
+
+
+
+
+
+
+
+
+
+
+
+      /*char a = 'a';
       for (int i = 0, j = s.length - 1; i < s.length; i++, j--) {
         if (j <= i) {
           break;//循环到一半就好了
@@ -46,7 +68,7 @@ class Solution {
         a = s[i];
         s[i] = s[j];
         s[j] = a;
-      }
+      }*/
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
