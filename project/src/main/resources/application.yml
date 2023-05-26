@@ -1,0 +1,24 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/data?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+  mvc:
+    # URL响应地址（Springboot默认为/**)
+    static-path-pattern: /**
+  web:
+    resources:
+      # 静态文件地址，保留官方内容后，进行追加
+      static-locations: classpath:/static,classpath:/templates
+
