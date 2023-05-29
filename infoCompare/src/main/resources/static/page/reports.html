@@ -5,7 +5,24 @@
         <div id="zyupload" class="zyupload"></div>
         <div class="layui-upload">
             <button type="button" class="layui-btn layui-btn-normal" id="testList"><i class="layui-icon layui-icon-file"></i>选择文件夹</button>
-            <button style="margin-left:20px;" type="button" class="layui-btn" id="testListAction"><i class="layui-icon layui-icon-upload"></i>开始</button>
+
+          <div class="layui-upload-list" style="max-width: 1000px;">
+            <table class="layui-table">
+              <colgroup>
+                <col>
+                <col width="150">
+                <col width="260">
+                <col width="150">
+              </colgroup>
+              <thead>
+              <tr><th>文件名</th>
+                <th>大小</th>
+                <th>上传进度</th>
+                <th>操作</th>
+              </tr></thead>
+              <tbody id="demoList"></tbody>
+            </table>
+          </div><button style="margin-left:20px;" type="button" class="layui-btn" id="testListAction"><i class="layui-icon layui-icon-upload"></i>开始</button>
         </div>
     </div>
 </div>

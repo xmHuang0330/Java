@@ -21,4 +21,7 @@ spring:
     resources:
       # 静态文件地址，保留官方内容后，进行追加
       static-locations: classpath:/static,classpath:/templates
+  servlet:
+    multipart:
+      max-file-size: 50MB
 
