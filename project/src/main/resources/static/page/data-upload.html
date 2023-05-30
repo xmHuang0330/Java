@@ -76,6 +76,19 @@
       }
       , done: function (res, index, upload) { //成功的回调
         var that = this;
+        layer.open({
+          type: 0
+          ,title: "数据导入结果"
+          ,content: '<div style="padding: 30px 50px;" align="center">' + '导入完毕' + '</div>'
+          ,btn: ['关闭']
+          ,yes: function (index, layero) {
+            layer.close(index);
+          }
+          ,btnAlign: 'c'
+          ,closeBtn: 0
+          ,shade: 0
+        });
+        console.log(res);
         //if(res.code == 0){ //上传成功
         var tr = that.elemList.find('tr#upload-' + index)
           , tds = tr.children();

@@ -1,12 +1,14 @@
 package com.system.pojo;
 
 import lombok.*;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@ConfigurationProperties(prefix="spring.datasource")
 public class BasicInfo {
 
   private String name;

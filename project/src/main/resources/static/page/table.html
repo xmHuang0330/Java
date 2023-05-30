@@ -7,29 +7,35 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户姓名</label>
+                            <label class="layui-form-label">样本号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" autocomplete="off" class="layui-input">
+                                <input type="text" name="name" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户性别</label>
+                            <label class="layui-form-label">芯片号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="sex" autocomplete="off" class="layui-input">
+                                <input type="text" name="lane" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户城市</label>
+                            <label class="layui-form-label">板号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="city" autocomplete="off" class="layui-input">
+                                <input type="text" name="tablet" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户职业</label>
+                            <label class="layui-form-label">36A</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="classify" autocomplete="off" class="layui-input">
+                                <input type="text" name="a36" autocomplete="off" class="layui-input">
                             </div>
                         </div>
+                      <div class="layui-inline">
+                        <label class="layui-form-label">Y45</label>
+                        <div class="layui-input-inline">
+                          <input type="text" name="y45" autocomplete="off" class="layui-input">
+                        </div>
+                      </div>
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
                         </div>
@@ -37,7 +43,6 @@
                 </form>
             </div>
         </fieldset>
-
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
@@ -73,20 +78,20 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'username', width: 80, title: '用户名'},
-                {field: 'sex', width: 80, title: '性别', sort: true},
-                {field: 'city', width: 80, title: '城市'},
-                {field: 'sign', title: '签名', minWidth: 150},
-                {field: 'experience', width: 80, title: '积分', sort: true},
-                {field: 'score', width: 80, title: '评分', sort: true},
-                {field: 'classify', width: 80, title: '职业'},
-                {field: 'wealth', width: 135, title: '财富', sort: true},
+                {field: 'name', width: 250,align: "center", title: '样本号', sort: true},
+                {field: 'lane', width: 150,align: "center", title: '芯片号'},
+                {field: 'index', width: 150,align: "center", title: '索引号', sort: true},
+                {field: 'tablet', width: 150,align: "center", title: '板号'},
+                {field: 'stutter', width: 150,align: "center", title: '深度占比', sort: true},
+                {field: 'well', width: 80,align: "center", title: '孔位', sort: true},
+                {field: 'a36', width: 80,align: "center", title: '36A'},
+                {field: 'y45', width: 80,align: "center", title: 'Y', sort: true},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 15,
             page: true,
+            height: 'full-50',
             skin: 'line'
         });
 

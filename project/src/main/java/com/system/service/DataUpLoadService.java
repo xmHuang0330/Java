@@ -1,6 +1,7 @@
 package com.system.service;
 
 import com.system.enums.ResultEnum;
+import com.system.mapper.DataUpLoadMapper;
 import com.system.pojo.BasicInfo;
 import com.system.utils.ExcelUtil;
 import org.apache.poi.ss.usermodel.CellType;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -22,19 +24,25 @@ public class DataUpLoadService {
   @Autowired
   ExcelUtil excelUtil;
 
-  public Map<Integer, String> uploadByExcel(MultipartFile file) throws Exception {
+  @Autowired
+  DataUpLoadMapper dataUpLoadMapper;
+
+  public Map<String, Object> uploadByExcel(MultipartFile file) throws Exception {
     Boolean judge = judge(file);
-    Map<Integer, String> map = new HashMap<>();
+    Map<String, Object> map = new HashMap<>();
     if (!judge) {
-      map.put(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMsg());
-      System.out.println("error");
+      map.put(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMsg() + " 上传文件不是以.xlsx结尾的");
       return map;
     }
-    getInfo(file);
+    List<BasicInfo> basicInfoList = getInfo(file);
+    int i = dataUpLoadMapper.insertDataBatch(basicInfoList);
+    int size = basicInfoList.size();
+    if (i == size) map.put(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMsg() + "，成功插入数据量：" + i);
+    else map.put(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMsg() + "共：" + size + " 插入：" + i);
     return map;
   }
 
-  public void getInfo(MultipartFile file) throws Exception {
+  public List<BasicInfo> getInfo(MultipartFile file) throws Exception {
     XSSFWorkbook workBook = excelUtil.getWorkBook(file);
     ArrayList<BasicInfo> basicInfos = new ArrayList<>();
     XSSFSheet sheet = workBook.getSheet("分型结果");
@@ -65,6 +73,7 @@ public class DataUpLoadService {
     }
     workBook.close();
     System.out.println("一共有：" + basicInfos.size());
+    return basicInfos;
   }
 
   public Boolean judge(MultipartFile file) {
