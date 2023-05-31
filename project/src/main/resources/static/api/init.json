@@ -252,6 +252,12 @@
           "href": "page/data-upload.html",
           "icon": "fa fa-meetup",
           "target": ""
+        },
+        {
+          "title": "数据信息",
+          "href": "page/data.html",
+          "icon": "fa fa-meetup",
+          "target": ""
         }
       ]
     }

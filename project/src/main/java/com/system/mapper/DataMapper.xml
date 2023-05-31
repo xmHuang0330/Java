@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--namespace 名称空间，指定对哪个接口进行映射-->
-<mapper namespace="com.system.mapper.DataUpLoadMapper">
+<mapper namespace="com.system.mapper.DataMapper">
     <!--
         select 表示执行查询sql
             id 唯一； 必须与接口中方法名称一致。
@@ -15,7 +15,7 @@
   <resultMap id="dataMap" type="com.system.pojo.BasicInfo">
     <result property="name" column="name"/>
     <result property="lane" column="lane"/>
-    <result property="index" column="index_"/>
+    <result property="index" column="index"/>
     <result property="tablet" column="tablet"/>
     <result property="stutter" column="stutter"/>
     <result property="well" column="well"/>
@@ -24,9 +24,13 @@
   </resultMap>
 
     <insert id="insertDataBatch" parameterType="java.util.List">
-      INSERT INTO basic (`name`,lane,index_,tablet,stutter,well,a36,y45) VALUES
+      INSERT INTO basic (`name`,lane,`index`,tablet,stutter,well,a36,y45) VALUES
       <foreach collection="list" separator="," item="sample">
         (#{sample.name},#{sample.lane},#{sample.index},#{sample.tablet},#{sample.stutter},#{sample.well},#{sample.a36},#{sample.y45})
       </foreach>
     </insert>
+
+  <select id="find" resultType="com.system.pojo.BasicInfo">
+    SELECT * FROM basic
+  </select>
 </mapper>

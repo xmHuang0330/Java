@@ -1,9 +1,12 @@
 package com.system.service;
 
 import com.system.enums.ResultEnum;
-import com.system.mapper.DataUpLoadMapper;
+import com.system.mapper.DataMapper;
 import com.system.pojo.BasicInfo;
+import com.system.pojo.ResultInfo;
 import com.system.utils.ExcelUtil;
+import com.system.utils.ToolUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -18,28 +21,60 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
-public class DataUpLoadService {
+public class DataService {
 
   @Autowired
   ExcelUtil excelUtil;
 
   @Autowired
-  DataUpLoadMapper dataUpLoadMapper;
+  DataMapper dataMapper;
+
+  @Autowired
+  ToolUtil toolUtil;
+
 
   public Map<String, Object> uploadByExcel(MultipartFile file) throws Exception {
     Boolean judge = judge(file);
     Map<String, Object> map = new HashMap<>();
     if (!judge) {
-      map.put(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMsg() + " 上传文件不是以.xlsx结尾的");
+      map.put(ResultEnum.ERROR.getCode()+"", ResultEnum.ERROR.getMsg() + " 上传文件不是以.xlsx结尾的");
       return map;
     }
     List<BasicInfo> basicInfoList = getInfo(file);
-    int i = dataUpLoadMapper.insertDataBatch(basicInfoList);
+    int i = dataMapper.insertDataBatch(basicInfoList);
     int size = basicInfoList.size();
-    if (i == size) map.put(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMsg() + "，成功插入数据量：" + i);
-    else map.put(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMsg() + "共：" + size + " 插入：" + i);
+    if (i == size) map.put(ResultEnum.SUCCESS.getCode()+"", ResultEnum.SUCCESS.getMsg() + "，成功插入数据量：" + i);
+    else map.put(ResultEnum.ERROR.getCode()+"", ResultEnum.ERROR.getMsg() + "共：" + size + " 插入：" + i);
     return map;
+  }
+
+  public ResultInfo search(BasicInfo basicInfo) {
+    ResultInfo resultInfo = new ResultInfo();
+    if (toolUtil.isEmpty(basicInfo)) {
+      resultInfo.setCode(ResultEnum.SearchInfoEmpty.getCode());
+      resultInfo.setMsg(ResultEnum.SearchInfoEmpty.getMsg());
+      resultInfo.setData(null);
+    } else if (toolUtil.isNull(basicInfo)) {
+      resultInfo.setCode(ResultEnum.SearchInfoIsnull.getCode());
+      resultInfo.setMsg(ResultEnum.SearchInfoIsnull.getMsg());
+      resultInfo.setData(null);
+    }
+    return resultInfo;
+  }
+
+
+  public ResultInfo info() {
+    ResultInfo resultInfo = new ResultInfo();
+    List<BasicInfo> basicInfos = dataMapper.find();
+    resultInfo.setCode(ResultEnum.SUCCESS.getCode());
+    resultInfo.setMsg(ResultEnum.SUCCESS.getMsg());
+    resultInfo.setCount(basicInfos.size());
+    resultInfo.setData(basicInfos);
+    log.info( "resultInfo---->" + resultInfo.toString());
+    //System.out.println(basicInfos);
+    return resultInfo;
   }
 
   public List<BasicInfo> getInfo(MultipartFile file) throws Exception {

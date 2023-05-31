@@ -5,15 +5,17 @@ import lombok.Getter;
 @Getter
 public enum  ResultEnum {
 
-  SUCCESS("3333", "操作成功"),
-  ERROR("4444", "操作失败"),
+  SUCCESS(1001, "操作成功"),
+  ERROR(1002, "操作失败"),
+  SearchInfoEmpty(1003,"搜索值为空"),
+  SearchInfoIsnull(1004,"搜索值不能为null")
 
   ;
 
-  private String code;
+  private Integer code;
   private String msg;
 
-  ResultEnum(String code, String msg) {
+  ResultEnum(Integer code, String msg) {
     this.code = code;
     this.msg = msg;
   }

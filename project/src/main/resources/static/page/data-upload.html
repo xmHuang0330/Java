@@ -38,7 +38,7 @@
     var uploadListIns = upload.render({
       elem: '#testList'
       , elemList: $('#demoList') //列表元素对象
-      , url: "/upload/excelUpload" //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+      , url: "/data/excelUpload" //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
       , accept: 'file'
       , multiple: false
       , auto: false
@@ -80,10 +80,13 @@
           type: 0
           ,title: "数据导入结果"
           ,content: '<div style="padding: 30px 50px;" align="center">' + '导入完毕' + '</div>'
-          ,btn: ['关闭']
+          ,btn: ['关闭'/*,'查看'*/]
           ,yes: function (index, layero) {
             layer.close(index);
           }
+          /*,btn2:function (index, layero) {
+           window.location.href = 'page/data.html'
+          }*/
           ,btnAlign: 'c'
           ,closeBtn: 0
           ,shade: 0
