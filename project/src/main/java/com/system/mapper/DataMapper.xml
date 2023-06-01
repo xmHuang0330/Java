@@ -33,4 +33,57 @@
   <select id="find" resultType="com.system.pojo.BasicInfo">
     SELECT * FROM basic
   </select>
+
+  <select id="searchByName" resultType="com.system.pojo.BasicInfo">
+    SELECT * FROM
+    (SELECT  * FROM `basic` WHERE a36 > #{param2} and y45 > #{param3}) success
+    WHERE `name` LIKE #{param1}
+  </select>
+
+  <select id="searchByAY" resultType="com.system.pojo.BasicInfo">
+    SELECT  * FROM `basic` WHERE a36 >= #{param1} and y45 >= #{param2}
+  </select>
+
+  <select id="searchByLane" resultType="com.system.pojo.BasicInfo">
+    SELECT * FROM
+    (SELECT  * FROM `basic` WHERE a36 >= #{param2} and y45 >= #{param3}) success
+    WHERE `lane` LIKE #{param1}
+  </select>
+
+  <select id="searchByTablet" resultType="com.system.pojo.BasicInfo">
+    SELECT * FROM
+    (SELECT  * FROM `basic` WHERE a36 >= #{param2} and y45 >= #{param3}) success
+    WHERE `tablet` LIKE #{param1}
+  </select>
+
+  <select id="searchByNL" resultType="com.system.pojo.BasicInfo">
+    SELECT * FROM
+      (SELECT * FROM
+        (SELECT  * FROM `basic` WHERE a36 >= #{param3} and y45 >= #{param4}) success
+      WHERE `lane` LIKE #{param2}) success1
+    WHERE `name` LIKE #{param1}
+  </select>
+
+  <select id="searchByNT" resultType="com.system.pojo.BasicInfo">
+    SELECT * FROM
+      (SELECT * FROM
+        (SELECT  * FROM `basic` WHERE a36 >= #{param3} and y45 >= #{param4}) success
+      WHERE `tablet` LIKE #{param2}) success1
+    WHERE `name` LIKE #{param1}
+  </select>
+
+  <select id="searchByLT" resultType="com.system.pojo.BasicInfo">
+    SELECT * FROM
+      (SELECT * FROM
+        (SELECT  * FROM `basic` WHERE a36 >= #{param3} and y45 >= #{param4}) success
+      WHERE `tablet` LIKE #{param2}) success1
+    WHERE `lane` LIKE #{param1}
+  </select>
+
+  <select id="searchByBasic" resultType="com.system.pojo.BasicInfo">
+     SELECT  * FROM `basic` WHERE `name` LIKE #{param1}
+        AND lane LIKE #{param2} AND tablet LIKE #{param3} AND a36 >= #{param4}
+          AND y45 >= #{param4}
+  </select>
+
 </mapper>

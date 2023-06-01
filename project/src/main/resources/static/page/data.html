@@ -73,7 +73,9 @@
 
     table.render({
       elem: '#currentTableId',
-      url: 'api/table.json',
+      url: '/data/search',
+      method:'post',
+      contentType:'application/json',
       toolbar: '#toolbarDemo',
       defaultToolbar: ['filter', 'exports', 'print', {
         title: '提示',
@@ -83,18 +85,29 @@
       cols: [[
         {type: "checkbox", width: 50},
         {field: 'name', width: 250, align: "center", title: '样本号', sort: true},
-        {field: 'lane', width: 150, align: "center", title: '芯片号'},
+        {field: 'lane', width: 150, align: "center", title: '芯片号', sort: true},
         {field: 'index', width: 150, align: "center", title: '索引号', sort: true},
-        {field: 'tablet', width: 150, align: "center", title: '板号'},
+        {field: 'tablet', width: 180, align: "center", title: '板号', sort: true},
         {field: 'stutter', width: 150, align: "center", title: '深度占比', sort: true},
         {field: 'well', width: 80, align: "center", title: '孔位', sort: true},
-        {field: 'a36', width: 80, align: "center", title: '36A'},
+        {field: 'a36', width: 80, align: "center", title: '36A', sort: true},
         {field: 'y45', width: 80, align: "center", title: 'Y', sort: true},
         {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
       ]],
-      limits: [10, 15, 20, 25, 50, 100],
-      limit: 15,
       page: true,
+      limits: [10,15,20,30]
+      , limit: 10
+      , parseData: function (res) {
+        var result;
+        console.log(this);
+        console.log(JSON.stringify(res));
+        if (this.page.curr) {
+          result = res.data.slice(this.limit * (this.page.curr - 1), this.limit * this.page.curr);
+        } else {
+          result = res.data.slice(0, this.limit);
+        }
+        return {"code": res.code, "msg": res.msg, "count": res.count, "data": result};
+      },
       height:'full',
       scrollbar: false,
       auto:true,
@@ -107,21 +120,15 @@
       layer.alert(result, {
         title: '最终的搜索信息'
       });
-      $.ajax({
-        url: '/data/search',
-        data: result,
-        method:'post',
-        contentType: 'application/json'
-      });
-
       //执行搜索重载
       table.reload('currentTableId', {
+        url:'/data/search',
+        method:'post',
+        contentType: "application/json",
         page: {
           curr: 1
         }
-        , where: {
-          searchParams: result
-        }
+        , where: data.field
       }, 'data');
 
       return false;

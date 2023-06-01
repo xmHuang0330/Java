@@ -52,7 +52,14 @@ public class DataService {
 
   public ResultInfo search(BasicInfo basicInfo) {
     ResultInfo resultInfo = new ResultInfo();
-    if (toolUtil.isEmpty(basicInfo)) {
+    List<BasicInfo> basicInfos = null;
+    if (toolUtil.isInit(basicInfo)) {
+      List<BasicInfo> basicInfos1 = dataMapper.find();
+      resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
+      resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
+      resultInfo.setCount(basicInfos1.size());
+      resultInfo.setData(basicInfos1);
+    } else if (toolUtil.isEmpty(basicInfo)) {
       resultInfo.setCode(ResultEnum.SearchInfoEmpty.getCode());
       resultInfo.setMsg(ResultEnum.SearchInfoEmpty.getMsg());
       resultInfo.setData(null);
@@ -60,8 +67,51 @@ public class DataService {
       resultInfo.setCode(ResultEnum.SearchInfoIsnull.getCode());
       resultInfo.setMsg(ResultEnum.SearchInfoIsnull.getMsg());
       resultInfo.setData(null);
+    } else {
+      basicInfos = searchDetails(basicInfo);
+      resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
+      resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
+      resultInfo.setCount(basicInfos.size());
+      resultInfo.setData(basicInfos);
     }
     return resultInfo;
+  }
+
+  public List<BasicInfo> searchDetails(BasicInfo basicInfo) {
+    List<Integer> standard = standard(basicInfo);
+    int a36 = standard.get(0);
+    int y45 = standard.get(1);
+    List<BasicInfo> basicInfos = null;
+    if (!basicInfo.getName().equals("") && basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
+      basicInfos = dataMapper.searchByName("%" + basicInfo.getName() + "%", a36, y45);
+    } else if (basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
+      basicInfos = dataMapper.searchByLane("%" + basicInfo.getLane() + "%", a36, y45);
+    } else if (basicInfo.getName().equals("") && basicInfo.getLane().equals("") && !basicInfo.getTablet().equals("")){
+      basicInfos = dataMapper.searchByTablet("%" + basicInfo.getTablet() + "%", a36, y45);
+    } else if (basicInfo.getName().equals("") && basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
+      basicInfos = dataMapper.searchByAY(a36, y45);
+    } else if (!basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && !basicInfo.getTablet().equals("")) {
+      basicInfos = dataMapper.searchByBasic("%" + basicInfo.getName() + "%", "%" + basicInfo.getLane() + "%", "%" + basicInfo.getTablet() + "%", a36, y45);
+    } else if (!basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
+      basicInfos = dataMapper.searchByNL("%" + basicInfo.getName() + "%", "%" + basicInfo.getLane() + "%", a36, y45);
+    } else if (!basicInfo.getName().equals("") && basicInfo.getLane().equals("") && !basicInfo.getTablet().equals("")) {
+      basicInfos = dataMapper.searchByNT("%" + basicInfo.getName() + "%", "%" + basicInfo.getTablet() + "%", a36, y45);
+    } else if (basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && !basicInfo.getTablet().equals("")) {
+      basicInfos = dataMapper.searchByLT("%" + basicInfo.getLane() + "%", "%" + basicInfo.getTablet() + "%", a36, y45);
+    }
+    return basicInfos;
+  }
+
+  public List<Integer> standard(BasicInfo basicInfo) {
+    ArrayList<Integer> integers = new ArrayList<>();
+    int a36 = 27,y45 = 35;
+    Integer a361 = basicInfo.getA36();
+    Integer y451 = basicInfo.getY45();
+    if (a361 != null) a36 = a361;
+    if (y451 != null) y45 = y451;
+    integers.add(0,a36);
+    integers.add(1,y45);
+    return integers;
   }
 
 
@@ -112,7 +162,7 @@ public class DataService {
   }
 
   public Boolean judge(MultipartFile file) {
-    return file.getOriginalFilename().endsWith(".xlsx") ? true : false;
+    return file.getOriginalFilename().endsWith("xlsx") ? true : false;
   }
 
 
