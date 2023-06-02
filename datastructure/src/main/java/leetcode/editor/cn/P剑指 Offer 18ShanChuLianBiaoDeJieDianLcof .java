@@ -47,11 +47,11 @@ public class P剑指 Offer 18ShanChuLianBiaoDeJieDianLcof{
  */
 class Solution {
     public ListNode deleteNode(ListNode head, int val) {
-      if (head == null) {
-        return head;
-      }
+
+      if (head == null) return head;
       head.next = deleteNode(head.next, val);
-      return head.val == val ? head.next : head;
+      if (head.val == val) return head.next;
+      else return head;
 
 
 

@@ -82,8 +82,8 @@ class Solution {
         root = stack.pop();
         res.add(root.val);
         root = root.right;
-      }
 
+      }
       return res;
     }
 

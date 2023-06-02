@@ -249,9 +249,23 @@
       "child": [
         {
           "title": "数据导入",
-          "href": "page/data-upload.html",
+          "href": "",
           "icon": "fa fa-meetup",
-          "target": ""
+          "target": "",
+          "child":[
+            {
+              "title": "芯片信息",
+              "href": "page/form-sample.html",
+              "icon": "fa fa-meetup",
+              "target": ""
+            },
+            {
+              "title": "下机数据",
+              "href": "page/data-upload.html",
+              "icon": "fa fa-meetup",
+              "target": ""
+            }
+          ]
         },
         {
           "title": "数据信息",

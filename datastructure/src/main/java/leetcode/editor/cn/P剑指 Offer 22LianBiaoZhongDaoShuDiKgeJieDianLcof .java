@@ -32,12 +32,12 @@ public class P剑指 Offer 22LianBiaoZhongDaoShuDiKgeJieDianLcof{
 class Solution {
     public ListNode getKthFromEnd(ListNode head, int k) {
 
-      ListNode formmer = head, latter = head;
+     ListNode former = head,latter = head;
       for (int i = 0; i < k; i++) {
-        formmer = formmer.next;
+        former = former.next;
       }
-      while (formmer != null) {
-        formmer = formmer.next;
+      while (former != null) {
+        former = former.next;
         latter = latter.next;
       }
       return latter;
