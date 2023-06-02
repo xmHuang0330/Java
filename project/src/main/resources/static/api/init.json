@@ -268,10 +268,70 @@
           ]
         },
         {
-          "title": "数据信息",
-          "href": "page/data.html",
+          "title": "项目信息",
+          "href": "",
           "icon": "fa fa-meetup",
-          "target": ""
+          "target": "",
+          "child":[
+            {
+              "title": "数据情况",
+              "href": "page/data.html",
+              "icon": "fa fa-meetup",
+              "target": ""
+            },
+            {
+              "title": "交付情况",
+              "href": "",
+              "icon": "fa fa-meetup",
+              "target": ""
+            }
+          ]
+        },
+        {
+          "title": "芯片信息",
+          "href": "",
+          "icon": "fa fa-meetup",
+          "target": "",
+          "child":[
+            {
+              "title": "芯片成功率",
+              "href": "",
+              "icon": "fa fa-meetup",
+              "target": ""
+            },
+            {
+              "title": "板成功率",
+              "href": "",
+              "icon": "fa fa-meetup",
+              "target": ""
+            }
+          ]
+        },
+        {
+          "title": "人员管理",
+          "href": "",
+          "icon": "fa fa-meetup",
+          "target": "",
+          "child":[
+            {
+              "title": "实验情况",
+              "href": "",
+              "icon": "fa fa-meetup",
+              "target": ""
+            },
+            {
+              "title": "绩效明细",
+              "href": "",
+              "icon": "fa fa-meetup",
+              "target": ""
+            },
+            {
+              "title": "人员变动",
+              "href": "",
+              "icon": "fa fa-meetup",
+              "target": ""
+            }
+          ]
         }
       ]
     }
