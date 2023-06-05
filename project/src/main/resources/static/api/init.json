@@ -304,6 +304,12 @@
               "href": "",
               "icon": "fa fa-meetup",
               "target": ""
+            },
+            {
+              "title": "平均深度",
+              "href": "",
+              "icon": "fa fa-meetup",
+              "target": ""
             }
           ]
         },

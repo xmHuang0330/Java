@@ -27,10 +27,10 @@ public class DataController {
 
   @PostMapping("/search")
   public ResultInfo search(@RequestBody BasicInfo basicInfo) {
-    log.info(basicInfo.toString());
     ResultInfo resultInfo = dataService.search(basicInfo);
-    log.info(resultInfo.toString());
     return resultInfo;
   }
+
+
 
 }
