@@ -35,7 +35,6 @@ public static void main(String[]args){
 class Solution {
   public int findRepeatNumber(int[] nums) {
     int i = 0;
-    int j = 0;
     while (i < nums.length) {
       if (nums[i] == i) {
         i++;
@@ -44,13 +43,11 @@ class Solution {
       if (nums[nums[i]] == nums[i]) {
         return nums[i];
       }
-      j = nums[i];
-      nums[i] = nums[j];
-      nums[j] = j;
+      int temp = nums[i];
+      nums[i] = nums[temp];
+      nums[temp] = temp;
     }
     return -1;
-
-
 
 
 

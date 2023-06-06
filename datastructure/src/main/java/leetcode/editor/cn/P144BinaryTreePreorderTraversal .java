@@ -93,9 +93,6 @@ class Solution {
         root = stack.pop();
         root = root.right;
       }
-      res.forEach((Integer a) -> {
-        System.out.println(a);
-      });
       return res;
     }
 

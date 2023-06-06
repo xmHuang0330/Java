@@ -44,7 +44,8 @@ public class P剑指 Offer 55 - IErChaShuDeShenDuLcof{
  */
 class Solution {
     public int maxDepth(TreeNode root) {
-
+      if (root == null) return 0;
+      return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

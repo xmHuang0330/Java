@@ -22,4 +22,12 @@ public class SampleController {
     sampleService.uploadSample(file);
     return null;
   }
+
+  @ResponseBody
+  @RequestMapping("/judgeSample")
+  public Map<String, Object> judgeSample(MultipartFile file) throws Exception {
+    sampleService.judgeWork(file);
+    return null;
+  }
+
 }

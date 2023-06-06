@@ -1,7 +1,6 @@
 package com.system.service;
 
 import com.system.utils.ExcelUtil;
-import io.swagger.models.auth.In;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -10,7 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -20,13 +19,61 @@ public class SampleService {
   ExcelUtil excelUtil;
 
   public void uploadSample(MultipartFile file) throws Exception {
-    XSSFWorkbook workBook = excelUtil.getWorkBook(file);
-    Map<String, LinkedList<Object>> tablet = getTablet(workBook);
+    Map<String, LinkedList<Object>> tablet = Tablet(excelUtil.getWorkBook(file));
     Set<String> strings = tablet.keySet();
+    chemicalInfo(file);
   }
 
-  public HashMap<String, String> getMembers(XSSFWorkbook workbook) {
-    HashMap<String, String> map = new LinkedHashMap<>();
+  public void judgeWork(MultipartFile file) throws Exception {
+    sampleJudge(excelUtil.getWorkBook(file));
+  }
+
+  public void chemicalInfo(MultipartFile file) {
+
+  }
+
+  public void sampleJudge(XSSFWorkbook workbook) throws IOException {
+    String[] strings = new String[]{"lane1", "lane2", "lane3", "lane4"};
+    HashMap<String, String> map = new HashMap<>();
+    ArrayList<Object> list = new ArrayList<>();
+    String name = null;
+    CellType cellType = null;
+    for (String sheetName :
+      strings) {
+      XSSFSheet sheet = workbook.getSheet(sheetName);
+      int lastRowNum = sheet.getLastRowNum();
+      int l = 1;
+      int c = 0;
+      while (l <= lastRowNum) {
+        XSSFRow row = sheet.getRow(l);
+        XSSFCell cell = row.getCell(2);
+        if (cell == null) {
+          l++;
+          continue;
+        } else cellType = cell.getCellType();
+        if (cellType == CellType.NUMERIC) name = cell.getNumericCellValue() + "";
+        else name = cell.getStringCellValue();
+        if (map.containsKey(name)) {
+          c++;
+          list.add(name);
+          System.out.println(sheetName + "中的 " + name + " 与 " + map.get(name) + " 中的样本号存在重复");
+        } else {
+          map.put(name, sheetName);
+        }
+        l++;
+      }
+      //System.out.println(sheetName + "单表重复及跨表重复的样本号一共有：" + c);
+    }
+    workbook.close();
+    list.forEach((Object s) -> {
+      System.out.println(s);
+    });
+  }
+
+
+
+  public HashMap<Object, Object> infoSample(XSSFWorkbook workbook,int integer) {
+    HashMap<Object, Object> map = new LinkedHashMap<>();
     XSSFSheet sheet = workbook.getSheet("建库信息");
     int lastRowNum = sheet.getLastRowNum();
     for (int i = 1; i <= lastRowNum; i++) {
@@ -34,21 +81,22 @@ public class SampleService {
       if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType._NONE) continue;
       String tablet = row.getCell(2).getStringCellValue();
       if (tablet.startsWith("A") || tablet.startsWith("T")) continue;
-      if (row.getCell(8) == null) continue;
-      String members = row.getCell(8).getStringCellValue();
-      map.put(tablet, members);
+      if (row.getCell(integer) == null) continue;
+      Object obj = null;
+      if (row.getCell(integer).getCellType() == CellType.NUMERIC)
+      map.put(tablet, obj);
     }
     return map;
   }
 
-  public Map<String, LinkedList<Object>> getTablet(XSSFWorkbook workbook) {
-    HashMap<String, String> members = getMembers(workbook);
+  public Map<String, LinkedList<Object>> Tablet(XSSFWorkbook workbook) {
+    HashMap<Object, Object> members = infoSample(workbook,8);
+    HashMap<Object, Object> density = infoSample(workbook,7);
     String[] arr = new String[]{"lane1", "lane2", "lane3", "lane4"};
     HashMap<String, LinkedList<Object>> tabletPro = new HashMap<>();
     ArrayList<String> tabletList = new ArrayList<>();
     int lastRowNum = 0;
     int tabletCount = 0;
-
     for (String lane :
       arr) {
       XSSFSheet sheet = workbook.getSheet(lane);
@@ -76,13 +124,10 @@ public class SampleService {
           tabletPro.get(tabletL.toString()).add(0,project);
           tabletPro.get(tabletL.toString()).add(1,tabletCount);
           tabletPro.get(tabletL.toString()).add(2,members.get(tablet));
-
+          tabletPro.get(tabletL.toString()).add(3,density.get(tablet));
         }
-
       }
     }
-
-
     return tabletPro;
   }
 

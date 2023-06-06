@@ -12,8 +12,9 @@
   <div class="layuimini-main">
     <div id="zyupload" class="zyupload"></div>
     <div class="layui-upload">
-      <button type="button" class="layui-btn layui-btn-normal" id="testList"><i class="layui-icon layui-icon-file"></i>选择需要上传的文件</button>
-      <button style="margin-left:20px;" type="button" class="layui-btn" id="testListAction"><i class="layui-icon layui-icon-upload"></i>开始上传</button>
+      <button type="button" class="layui-btn layui-btn-normal" id="testList"><i class="layui-icon layui-icon-file"></i>选择样本信息表</button>
+      <button style="margin-left:20px;" type="button" class="layui-btn" id="testListAction1"><i class="layui-icon layui-icon-upload"></i>验证样本信息表</button>
+      <button style="margin-left:20px;" type="button" class="layui-btn" id="testListAction"><i class="layui-icon layui-icon-upload"></i>上传样本信息表</button>
       <div class="layui-upload-list" style="max-width: 1000px;">
         <table class="layui-table">
           <colgroup>
@@ -41,7 +42,39 @@
     var $ = layui.jquery
       , upload = layui.upload
       , element = layui.element
-      , layer = layui.layer
+      , layer = layui.layer;
+
+    var up = upload.render({
+      elem: '#testList'
+      , url: "/sample/judgeSample" //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+      , accept: 'file'
+      , multiple: false
+      , auto: false
+      , bindAction: '#testListAction1'
+      , done: function (res, index, upload) { //成功的回调
+        var that = this;
+        layer.open({
+          type: 0
+          ,title: "数据验证结果"
+          ,content: '<div style="padding: 30px 50px;" align="center">' + '导入完毕' + '</div>'
+          ,btn: ['关闭'/*,'查看'*/]
+          ,yes: function (index, layero) {
+            layer.close(index);
+          }
+          ,btnAlign: 'c'
+          ,closeBtn: 0
+          ,shade: 0
+        });
+        console.log(res);
+        //if(res.code == 0){ //上传成功
+        var tr = that.elemList.find('tr#upload-' + index)
+          , tds = tr.children();
+        tds.eq(3).html(''); //清空操作
+        delete this.files[index]; //删除文件队列已经上传成功的文件
+        //}
+      }
+    });
+
     var uploadListIns = upload.render({
       elem: '#testList'
       , elemList: $('#demoList') //列表元素对象
@@ -91,9 +124,6 @@
           ,yes: function (index, layero) {
             layer.close(index);
           }
-          /*,btn2:function (index, layero) {
-           window.location.href = 'page/data.html'
-          }*/
           ,btnAlign: 'c'
           ,closeBtn: 0
           ,shade: 0

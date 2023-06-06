@@ -50,10 +50,7 @@ class Solution {
 
       if (head == null) return head;
       head.next = deleteNode(head.next, val);
-      if (head.val == val) return head.next;
-      else return head;
-
-
+      return head.val == val ? head.next : head;
 
 
 
