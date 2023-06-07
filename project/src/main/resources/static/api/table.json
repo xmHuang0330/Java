@@ -4,14 +4,12 @@
   "count": 13,
   "data": [
     {
-      "name": "R4403105000002020043234",
-      "lane": "V350150968_L01",
-      "index": 361,
-      "tablet": "2023-GDSZ-A-262",
-      "stutter": 2,
-      "well": "10A",
-      "a36": 24,
-      "y45": 45
+      "dataTime": "R4403105000002020043234",
+      "numberA": "V350150968_L01",
+      "numberY": 361,
+      "question": "2023-GDSZ-A-262",
+      "handel": 2,
+      "remark": "10A"
     }
   ]
 }

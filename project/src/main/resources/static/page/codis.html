@@ -8,34 +8,14 @@
       <form class="layui-form layui-form-pane" action="">
       <div style="margin: 10px 10px 10px 10px">
           <div class="layui-form-item">
-
-            <div class="layui-inline">
-              <label class="layui-form-label">芯片号</label>
-              <div class="layui-input-inline">
-                <input type="text" name="lane" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label required">样本号</label>
-              <div class="layui-input-inline">
-                <input type="text"  name="name" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">板号</label>
-              <div class="layui-input-inline">
-                <input type="text" name="tablet" autocomplete="off" class="layui-input">
-              </div>
-            </div>
             <div class="layui-input-inline" style="width:300px">
               <select name="类型" multiple="" >
-                <option selected value="q">全部</option>
-                <option  value="m">男性</option>
-                <option  value="w">女性</option>
-                <option  value="f">不合格</option>
+                <option selected value="sz">深圳</option>
+                <option  value="gz">广州</option>
+                <option  value="zq">肇庆</option>
+                <option  value="zh">珠海</option>
               </select>
             </div>
-
             <div class="layui-inline">
               <button id="search" type="button" class="layui-btn layui-btn-primary" lay-submit lay-filter="data-search-btn"><i
                 class="layui-icon"></i> 搜 索
@@ -71,7 +51,7 @@
 
     table.render({
       elem: '#currentTableId',
-      url: '/data/search',
+      url: 'api/table.json',
       method:'post',
       contentType:'application/json',
       toolbar: '#toolbarDemo',
@@ -81,16 +61,12 @@
         icon: 'layui-icon-tips'
       }],
       cols: [[
-        {type: "checkbox", width: 50},
-        {field: 'name', width: 250, align: "center", title: '样本号', sort: true},
-        {field: 'lane', width: 150, align: "center", title: '芯片号', sort: true},
-        {field: 'index', width: 150, align: "center", title: '索引号', sort: true},
-        {field: 'tablet', width: 180, align: "center", title: '板号', sort: true},
-        {field: 'stutter', width: 150, align: "center", title: '深度占比', sort: true},
-        {field: 'well', width: 80, align: "center", title: '孔位', sort: true},
-        {field: 'a36', width: 80, align: "center", title: '36A', sort: true},
-        {field: 'y45', width: 80, align: "center", title: 'Y', sort: true},
-        {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+        {field: 'dataTime', width: 250, align: "center", title: '时间'},
+        {field: 'numberA', width: 150, align: "center", title: '数量（常）'},
+        {field: 'numberY', width: 150, align: "center", title: '数量（Y）'},
+        {field: 'question', width: 180, align: "center", title: '问题'},
+        {field: 'handel', width: 150, align: "center", title: '是否解决'},
+        {field: 'remark', width: 80, align: "center", title: '备注'}
       ]],
       page: true,
       limits: [10,15,20,30]
@@ -120,7 +96,7 @@
       });
       //执行搜索重载
       table.reload('currentTableId', {
-        url:'/data/search',
+        url:'#',
         method:'post',
         contentType: "application/json",
         page: {

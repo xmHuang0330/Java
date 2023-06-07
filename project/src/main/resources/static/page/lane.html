@@ -8,7 +8,6 @@
       <form class="layui-form layui-form-pane" action="">
       <div style="margin: 10px 10px 10px 10px">
           <div class="layui-form-item">
-
             <div class="layui-inline">
               <label class="layui-form-label">芯片号</label>
               <div class="layui-input-inline">
@@ -16,26 +15,11 @@
               </div>
             </div>
             <div class="layui-inline">
-              <label class="layui-form-label required">样本号</label>
+              <label class="layui-form-label">年月范围</label>
               <div class="layui-input-inline">
-                <input type="text"  name="name" autocomplete="off" class="layui-input">
+                <input type="text" class="layui-input" id="test8" placeholder=" - ">
               </div>
             </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">板号</label>
-              <div class="layui-input-inline">
-                <input type="text" name="tablet" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-input-inline" style="width:300px">
-              <select name="类型" multiple="" >
-                <option selected value="q">全部</option>
-                <option  value="m">男性</option>
-                <option  value="w">女性</option>
-                <option  value="f">不合格</option>
-              </select>
-            </div>
-
             <div class="layui-inline">
               <button id="search" type="button" class="layui-btn layui-btn-primary" lay-submit lay-filter="data-search-btn"><i
                 class="layui-icon"></i> 搜 索
@@ -63,15 +47,22 @@
 </div>
 
 <script>
-  layui.use(['form', 'table', 'miniPage', 'element'], function () {
+  layui.use(['form', 'table', 'miniPage', 'element','laydate'], function () {
     var $ = layui.jquery,
       form = layui.form,
       table = layui.table,
-      miniPage = layui.miniPage;
+      miniPage = layui.miniPage,
+      laydate = layui.laydate;
 
+    //年月范围
+    laydate.render({
+      elem: '#test8'
+      ,type: 'month'
+      ,range: true
+    });
     table.render({
       elem: '#currentTableId',
-      url: '/data/search',
+      url: 'page/lane.json',
       method:'post',
       contentType:'application/json',
       toolbar: '#toolbarDemo',
@@ -81,16 +72,15 @@
         icon: 'layui-icon-tips'
       }],
       cols: [[
-        {type: "checkbox", width: 50},
-        {field: 'name', width: 250, align: "center", title: '样本号', sort: true},
-        {field: 'lane', width: 150, align: "center", title: '芯片号', sort: true},
-        {field: 'index', width: 150, align: "center", title: '索引号', sort: true},
-        {field: 'tablet', width: 180, align: "center", title: '板号', sort: true},
-        {field: 'stutter', width: 150, align: "center", title: '深度占比', sort: true},
-        {field: 'well', width: 80, align: "center", title: '孔位', sort: true},
-        {field: 'a36', width: 80, align: "center", title: '36A', sort: true},
-        {field: 'y45', width: 80, align: "center", title: 'Y', sort: true},
-        {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+        {field: 'lane', width: 150, align: "center", title: '芯片号'},
+        {field: 'date', width: 150, align: "center", title: '下机时间'},
+        {field: 'startCount', width: 150, align: "center", title: '上机数量'},
+        {field: 'endCount', width: 150, align: "center", title: '下机数量'},
+        {field: 'repeatNum', width: 150, align: "center", title: '样本号重复数'},
+        {field: 'man', width: 100, align: "center", title: '合格男性'},
+        {field: 'women', width: 100, align: "center", title: '合格女性'},
+        {field: 'fail', width: 100, align: "center", title: '不合格'},
+        {field: 'successRate', width: 100, align: "center", title: '成功率'}
       ]],
       page: true,
       limits: [10,15,20,30]
@@ -120,7 +110,7 @@
       });
       //执行搜索重载
       table.reload('currentTableId', {
-        url:'/data/search',
+        url:'#',
         method:'post',
         contentType: "application/json",
         page: {

@@ -254,13 +254,7 @@
           "target": "",
           "child":[
             {
-              "title": "芯片信息",
-              "href": "page/form-sample.html",
-              "icon": "fa fa-meetup",
-              "target": ""
-            },
-            {
-              "title": "下机数据",
+              "title": "数据表",
               "href": "page/data-upload.html",
               "icon": "fa fa-meetup",
               "target": ""
@@ -281,7 +275,7 @@
             },
             {
               "title": "交付情况",
-              "href": "",
+              "href": "page/codis.html",
               "icon": "fa fa-meetup",
               "target": ""
             }
@@ -295,13 +289,13 @@
           "child":[
             {
               "title": "芯片成功率",
-              "href": "",
+              "href": "page/lane.html",
               "icon": "fa fa-meetup",
               "target": ""
             },
             {
               "title": "板成功率",
-              "href": "",
+              "href": "page/tablet.html",
               "icon": "fa fa-meetup",
               "target": ""
             },
@@ -321,7 +315,7 @@
           "child":[
             {
               "title": "实验情况",
-              "href": "",
+              "href": "page/experiment.html",
               "icon": "fa fa-meetup",
               "target": ""
             },

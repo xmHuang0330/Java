@@ -1,0 +1,18 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 13,
+  "data": [
+    {
+      "lane": "R4403105000002020043234",
+      "date": "V350150968_L01",
+      "startCount": 361,
+      "endCount": "2023-GDSZ-A-262",
+      "repeatNum": 2,
+      "man": "10A",
+      "women": "10A",
+      "fail": "V350150968_L01",
+      "successRate": 361
+    }
+  ]
+}

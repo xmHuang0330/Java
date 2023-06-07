@@ -32,42 +32,39 @@ public class SampleService {
 
   }
 
-  public void sampleJudge(XSSFWorkbook workbook) throws IOException {
+  public void sampleJudge(XSSFWorkbook workbook) throws Exception {
     String[] strings = new String[]{"lane1", "lane2", "lane3", "lane4"};
-    HashMap<String, String> map = new HashMap<>();
-    ArrayList<Object> list = new ArrayList<>();
-    String name = null;
-    CellType cellType = null;
-    for (String sheetName :
-      strings) {
-      XSSFSheet sheet = workbook.getSheet(sheetName);
-      int lastRowNum = sheet.getLastRowNum();
-      int l = 1;
-      int c = 0;
-      while (l <= lastRowNum) {
-        XSSFRow row = sheet.getRow(l);
-        XSSFCell cell = row.getCell(2);
-        if (cell == null) {
-          l++;
-          continue;
-        } else cellType = cell.getCellType();
-        if (cellType == CellType.NUMERIC) name = cell.getNumericCellValue() + "";
-        else name = cell.getStringCellValue();
-        if (map.containsKey(name)) {
-          c++;
-          list.add(name);
-          System.out.println(sheetName + "中的 " + name + " 与 " + map.get(name) + " 中的样本号存在重复");
+    LinkedHashMap<String, ArrayList<Object>> map = new LinkedHashMap<>();
+    HashMap<String, String> map1 = new LinkedHashMap<>();
+    int index = 0;
+    String name;
+    for (String sheet : strings) {
+      XSSFSheet sheet1 = workbook.getSheet(sheet);
+      int lastRowNum = sheet1.getLastRowNum();
+      for (int i = 1; i <= lastRowNum; i++) {
+        XSSFRow row = sheet1.getRow(i);
+        index = (int) row.getCell(0).getNumericCellValue();
+        if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType._NONE) continue;
+        if (row.getCell(2).getCellType() == CellType.NUMERIC) name = row.getCell(2).getNumericCellValue() + "";
+        else name = row.getCell(2).getStringCellValue();
+        if (name.equals("")) continue;
+        if (!map.containsKey(name)) {
+          map.put(name, new ArrayList<>());
+          map.get(name).add(sheet);
+          map.get(name).add(index);
         } else {
-          map.put(name, sheetName);
+          StringBuilder builder = new StringBuilder();
+          StringBuilder builder1 = new StringBuilder();
+          builder.append(map.get(name).get(0) + "_").append(map.get(name).get(1));
+          builder1.append(sheet + "_").append(index);
+          map1.put(builder.toString(), name);
+          map1.put(builder1.toString(), name);
         }
-        l++;
       }
-      //System.out.println(sheetName + "单表重复及跨表重复的样本号一共有：" + c);
+      workbook.close();
+      System.out.println("=================");
+      excelUtil.sample(map1);
     }
-    workbook.close();
-    list.forEach((Object s) -> {
-      System.out.println(s);
-    });
   }
 
 

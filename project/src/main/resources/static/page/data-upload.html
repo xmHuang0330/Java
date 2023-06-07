@@ -12,8 +12,11 @@
   <div class="layuimini-main">
     <div id="zyupload" class="zyupload"></div>
     <div class="layui-upload">
-      <button type="button" class="layui-btn layui-btn-normal" id="testList"><i class="layui-icon layui-icon-file"></i>选择需要上传的文件</button>
-      <button style="margin-left:20px;" type="button" class="layui-btn" id="testListAction"><i class="layui-icon layui-icon-upload"></i>开始上传</button>
+      <button type="button" class="layui-btn layui-btn-normal" id="testList"><i class="layui-icon layui-icon-file"></i>选择需要上传的文件
+      </button>
+      <button style="margin-left:20px;" type="button" class="layui-btn" id="testListAction"><i
+        class="layui-icon layui-icon-upload"></i>开始上传
+      </button>
       <div class="layui-upload-list" style="max-width: 1000px;">
         <table class="layui-table">
           <colgroup>
@@ -23,11 +26,13 @@
             <col width="150">
           </colgroup>
           <thead>
-          <tr><th>文件名</th>
+          <tr>
+            <th>文件名</th>
             <th>大小</th>
             <th>上传进度</th>
             <th>操作</th>
-          </tr></thead>
+          </tr>
+          </thead>
           <tbody id="demoList"></tbody>
         </table>
       </div>
@@ -37,7 +42,7 @@
 <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
 <script src="../lib/jq-module/zyupload/zyupload-1.0.0.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-  layui.use(['upload', 'element', 'layer'], function() {
+  layui.use(['upload', 'element', 'layer'], function () {
     var $ = layui.jquery
       , upload = layui.upload
       , element = layui.element
@@ -85,18 +90,18 @@
         var that = this;
         layer.open({
           type: 0
-          ,title: "数据导入结果"
-          ,content: '<div style="padding: 30px 50px;" align="center">' + '导入完毕' + '</div>'
-          ,btn: ['关闭'/*,'查看'*/]
-          ,yes: function (index, layero) {
+          , title: "数据导入结果"
+          , content: '<div style="padding: 30px 50px;" align="center">' + '导入完毕' + '</div>'
+          , btn: ['关闭'/*,'查看'*/]
+          , yes: function (index, layero) {
             layer.close(index);
           }
           /*,btn2:function (index, layero) {
            window.location.href = 'page/data.html'
           }*/
-          ,btnAlign: 'c'
-          ,closeBtn: 0
-          ,shade: 0
+          , btnAlign: 'c'
+          , closeBtn: 0
+          , shade: 0
         });
         console.log(res);
         //if(res.code == 0){ //上传成功

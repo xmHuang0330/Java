@@ -1,0 +1,20 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 13,
+  "data": [
+    {
+      "lane": "R4403105000002020043234",
+      "tablet": "V350150968_L01",
+      "project": 361,
+      "experimenters": "2023-GDSZ-A-262",
+      "tabletLibraryDensity": 2,
+      "startCount": "10A",
+      "endCount": 361,
+      "man": "2023-GDSZ-A-262",
+      "woman": 2,
+      "failure": "10A",
+      "tabletSuccessRate": "10A"
+    }
+  ]
+}

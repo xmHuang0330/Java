@@ -45,8 +45,6 @@ class Solution {
 
 
 
-
-
       /*if (l1 == null) {
         return l2;
       } else if (l2 == null) {

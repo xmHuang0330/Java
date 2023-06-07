@@ -52,11 +52,20 @@ public class P剑指 Offer 27ErChaShuDeJingXiangLcof{
  */
 class Solution {
     public TreeNode mirrorTree(TreeNode root) {
-      if (root == null) return null;
+      if (root == null) return root;
       TreeNode temp = root.right;
       root.right = mirrorTree(root.left);
       root.left = mirrorTree(temp);
       return root;
+
+
+
+
+      /*if (root == null) return null;
+      TreeNode temp = root.right;
+      root.right = mirrorTree(root.left);
+      root.left = mirrorTree(temp);
+      return root;*/
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
