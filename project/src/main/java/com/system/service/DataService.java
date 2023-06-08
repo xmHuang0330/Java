@@ -129,7 +129,7 @@ public class DataService {
   }
 
   public List<BasicInfo> getInfo(MultipartFile file) throws Exception {
-    XSSFWorkbook workBook = excelUtil.getWorkBook(file);
+    XSSFWorkbook workBook = (XSSFWorkbook)excelUtil.getWorkBook(file).get(1);
     ArrayList<BasicInfo> basicInfos = new ArrayList<>();
     XSSFSheet sheet = workBook.getSheet("分型结果");
     int lastRowNum = sheet.getLastRowNum();

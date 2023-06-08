@@ -19,7 +19,7 @@ public class DataController {
   DataService dataService;
 
   @ResponseBody
-  @RequestMapping("/excelUpload")
+  @PostMapping("/excelUpload")
   public Map<String, Object> uploadByExcel(MultipartFile file) throws Exception {
     Map<String, Object> resultMap = dataService.uploadByExcel(file);
     return resultMap;

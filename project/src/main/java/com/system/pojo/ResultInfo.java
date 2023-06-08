@@ -1,6 +1,5 @@
 package com.system.pojo;
 
-import com.system.pojo.BasicInfo;
 import lombok.*;
 import org.springframework.stereotype.Component;
 

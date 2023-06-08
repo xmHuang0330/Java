@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 名称空间，指定对哪个接口进行映射-->
+<mapper namespace="com.system.mapper.TabletMapper">
+    <!--
+        select 表示执行查询sql
+            id 唯一； 必须与接口中方法名称一致。
+            resultType 表示执行查询SQL封装的实体类对象。如果放回集合，只需要指定集合中元素的类型即可。
+            标签体中存放要执行的select语句 
+    -->
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO tablet_information VALUES
+    <foreach collection="list" separator="," item="tablet">
+      (#{tablet.chip},#{tablet.tablet},#{tablet.project},#{tablet.experimenters},#{tablet.tabletDensity},#{tablet.startCount})
+    </foreach>
+  </insert>
+</mapper>

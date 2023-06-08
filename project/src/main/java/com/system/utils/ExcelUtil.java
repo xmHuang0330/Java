@@ -8,28 +8,37 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
 
 @Component
 public class ExcelUtil {
 
-  public XSSFWorkbook getWorkBook(MultipartFile file) throws Exception {
-
-    InputStream is = file.getInputStream();
-    XSSFWorkbook workbook = new XSSFWorkbook(is);
-    return workbook;
+  public ArrayList getWorkBook(MultipartFile file) throws Exception {
+    InputStream fis = file.getInputStream();
+    XSSFWorkbook workbook = new XSSFWorkbook(fis);
+    ArrayList<Object> list = new ArrayList<>();
+    list.add(0,fis);
+    list.add(1,workbook);
+    return list;
 
   }
 
-  public XSSFWorkbook getWorkBook(File file) throws Exception {
+  public ArrayList getWorkBook(File file) throws Exception {
     FileInputStream fis = new FileInputStream(file);
     XSSFWorkbook workbook = new XSSFWorkbook(fis);
-    return workbook;
+    ArrayList<Object> list = new ArrayList<>();
+    list.add(0,fis);
+    list.add(1,workbook);
+    return list;
   }
 
   public void sample(Map<String,String> map) throws Exception {
     File file = new File("sample.xlsx");
-    XSSFWorkbook workBook = getWorkBook(file);
+    ArrayList list = getWorkBook(file);
+    XSSFWorkbook workBook = (XSSFWorkbook)list.get(1);
+    FileInputStream fis = (FileInputStream)list.get(0);
     XSSFSheet sheet = workBook.getSheet("sample");
     int size = map.size();
     for (int i = 0; i <= size; i++) {
@@ -47,6 +56,8 @@ public class ExcelUtil {
     }
     FileOutputStream fos = new FileOutputStream("C:\\Users\\dr\\Desktop\\sample.xlsx");
     workBook.write(fos);
+    fis.close();
     workBook.close();
+    fos.close();
   }
 }

@@ -1,12 +1,14 @@
 package com.system.controller;
 
+import com.system.pojo.TabletInfo;
 import com.system.service.SampleService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -17,16 +19,22 @@ public class SampleController {
   SampleService sampleService;
 
   @ResponseBody
-  @RequestMapping("/sampleInfo")
+  @PostMapping("/sampleInfo")
   public Map<String, Object> uploadSample(MultipartFile file) throws Exception {
-    sampleService.uploadSample(file);
+    return sampleService.uploadSample(file);
+  }
+
+  @ResponseBody
+  @PostMapping("/judgeSample")
+  public Map<String, Object> judgeSample(MultipartFile file, HttpServletRequest request) throws Exception {
+    sampleService.judgeWork(file);
     return null;
   }
 
   @ResponseBody
-  @RequestMapping("/judgeSample")
-  public Map<String, Object> judgeSample(MultipartFile file) throws Exception {
-    sampleService.judgeWork(file);
+  @GetMapping(value = "/byChip")
+  public TabletInfo searchByChip(@RequestParam(value = "chip") String chip) {
+    sampleService.searchByChip(chip);
     return null;
   }
 
