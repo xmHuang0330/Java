@@ -2,8 +2,10 @@ package com.system.service;
 
 import com.system.enums.ResultEnum;
 import com.system.mapper.TabletMapper;
+import com.system.pojo.ResultInfo;
 import com.system.pojo.TabletInfo;
 import com.system.utils.ExcelUtil;
+import com.system.utils.ToolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -25,6 +27,9 @@ public class SampleService {
   ExcelUtil excelUtil;
 
   @Autowired
+  ToolUtil toolUtil;
+
+  @Autowired
   TabletMapper tabletMapper;
 
   public Map<String, Object> uploadSample(MultipartFile file) throws Exception {
@@ -44,9 +49,17 @@ public class SampleService {
 
   }
 
-  public TabletInfo searchByChip(String chip) {
-    TabletInfo tabletInfo = tabletMapper.searchByChip(chip);
-    return tabletInfo;
+  public ResultInfo searchByChip(String chip) {
+
+    return toolUtil.result(tabletMapper.searchByChip(chip));
+  }
+
+  public ResultInfo deleteByChip(String chip) {
+    System.out.println(chip+ "0000000000000000");
+    return toolUtil.resCount(tabletMapper.deleteByChip(chip));
+  }
+  public ResultInfo searchByTablet(String tablet) {
+    return toolUtil.result(tabletMapper.searchByTablet(tablet));
   }
 
   public Map<String, Object> toNvc(Map<String, ArrayList<Object>> tablet) {

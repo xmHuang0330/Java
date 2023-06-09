@@ -31,6 +31,28 @@ public class DataController {
     return resultInfo;
   }
 
+  @GetMapping("/searchByCT")
+  public ResultInfo searchByChip(String chip, String type) {
+    System.out.println(chip);
+    System.out.println(type);
+    return null;
+  }
+
+  @GetMapping("/searchByTT")
+  public ResultInfo searchByTablet(String tablet, String type) {
+    System.out.println(tablet);
+    System.out.println(type);
+    //ResultInfo resultInfo = dataService.searchByChip(chip);
+    return null;
+  }
+
+  @GetMapping("/searchByNT")
+  public ResultInfo searchByName(String name, String type) {
+    System.out.println(name);
+    System.out.println(type);
+    //ResultInfo resultInfo = dataService.searchByChip(chip);
+    return null;
+  }
 
 
 }

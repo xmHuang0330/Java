@@ -53,9 +53,9 @@ public class DataService {
 
   public ResultInfo search(BasicInfo basicInfo) {
     ResultInfo resultInfo = new ResultInfo();
-    List<BasicInfo> basicInfos = null;
+    List<Map<String, Object>> basicInfos = null;
     if (toolUtil.isInit(basicInfo)) {
-      List<BasicInfo> basicInfos1 = dataMapper.find();
+      List<Map<String, Object>> basicInfos1 = dataMapper.find();
       resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
       resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
       resultInfo.setCount(basicInfos1.size());
@@ -69,7 +69,7 @@ public class DataService {
       resultInfo.setMsg(ResultEnum.SearchInfoIsnull.getMsg());
       resultInfo.setData(null);
     } else {
-      basicInfos = searchDetails(basicInfo);
+      List<Map<String, Object>> basicInfos1 = searchDetails(basicInfo);
       resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
       resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
       resultInfo.setCount(basicInfos.size());
@@ -78,11 +78,11 @@ public class DataService {
     return resultInfo;
   }
 
-  public List<BasicInfo> searchDetails(BasicInfo basicInfo) {
+  public List<Map<String, Object>> searchDetails(BasicInfo basicInfo) {
     List<Integer> standard = standard(basicInfo);
     int a36 = standard.get(0);
     int y45 = standard.get(1);
-    List<BasicInfo> basicInfos = null;
+    List<Map<String, Object>> basicInfos = null;
     if (!basicInfo.getName().equals("") && basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
       basicInfos = dataMapper.searchByName("%" + basicInfo.getName() + "%", a36, y45);
     } else if (basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
@@ -118,7 +118,7 @@ public class DataService {
 
   public ResultInfo info() {
     ResultInfo resultInfo = new ResultInfo();
-    List<BasicInfo> basicInfos = dataMapper.find();
+    List<Map<String, Object>> basicInfos = dataMapper.find();
     resultInfo.setCode(ResultEnum.SUCCESS.getCode());
     resultInfo.setMsg(ResultEnum.SUCCESS.getMsg());
     resultInfo.setCount(basicInfos.size());

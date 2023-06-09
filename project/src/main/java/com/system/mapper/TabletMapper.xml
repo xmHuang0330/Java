@@ -17,4 +17,16 @@
       (#{tablet.chip},#{tablet.tablet},#{tablet.project},#{tablet.experimenters},#{tablet.tabletDensity},#{tablet.startCount})
     </foreach>
   </insert>
+
+  <select id="searchByChip" parameterType="java.lang.String" resultType="java.util.HashMap">
+    SELECT * FROM tablet_information t WHERE t.chip like concat('%',#{param1},'%')
+  </select>
+
+  <select id="searchByTablet" parameterType="java.lang.String" resultType="java.util.HashMap">
+    SELECT * FROM tablet_information t WHERE t.tablet like concat('%',#{param1},'%')
+  </select>
+
+  <delete id="deleteByChip" parameterType="java.lang.String" >
+    DELETE FROM tablet_information where chip LIKE concat(#{param1},'%')
+  </delete>
 </mapper>

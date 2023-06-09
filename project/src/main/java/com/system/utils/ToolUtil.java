@@ -1,7 +1,12 @@
 package com.system.utils;
 
 import com.system.pojo.BasicInfo;
+import com.system.pojo.ResultInfo;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class ToolUtil {
@@ -26,5 +31,19 @@ public class ToolUtil {
     if (basicInfo.getName().equals("null") || basicInfo.getLane().equals("null")
        || basicInfo.getTablet() .equals("null")) return true;
     else return false;
+  }
+
+  public ResultInfo result(List<Map<String,Object>> maps) {
+    ResultInfo resultInfo = new ResultInfo();
+    resultInfo.setData(maps);
+    resultInfo.setCount(maps.size());
+    return resultInfo;
+  }
+
+  public ResultInfo resCount(Integer count) {
+    ResultInfo resultInfo = new ResultInfo();
+    resultInfo.setCount(count);
+    resultInfo.setData(new ArrayList<>());
+    return resultInfo;
   }
 }
