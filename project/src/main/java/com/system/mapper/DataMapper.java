@@ -28,4 +28,14 @@ public interface DataMapper {
   List<Map<String, Object>> searchByLT(String lane, String tablet, Integer a36, Integer y45);
 
   List<Map<String, Object>> searchByBasic(String name, String lane, String tablet, Integer a36, Integer y45);
+
+  List<Map<String, Object>> searchAll(String project, Integer a36, Integer y45);
+
+  List<Map<String, Object>> searchMan(String project, Integer a36, Integer y45);
+
+  List<Map<String, Object>> searchWomen(String project, Integer a36, Integer y45);
+
+  List<Map<String, Object>> searchFail(String project);
+
+
 }

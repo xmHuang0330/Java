@@ -9,11 +9,13 @@
       <div style="margin: 10px 10px 10px 10px">
           <div class="layui-form-item">
 
-            <div class="layui-inline">
-              <label class="layui-form-label">芯片号</label>
-              <div class="layui-input-inline">
-                <input type="text" name="lane" autocomplete="off" class="layui-input">
-              </div>
+            <div class="layui-input-inline" style="width:300px">
+              <select name="project" multiple="" lay-verify="required">
+                <option value="深圳">深圳</option>
+                <option  value="广州市局">广州市局</option>
+                <option  value="肇庆">肇庆</option>
+                <option  value="珠海">珠海</option>
+              </select>
             </div>
             <div class="layui-inline">
               <label class="layui-form-label required">样本号</label>
@@ -28,8 +30,8 @@
               </div>
             </div>
             <div class="layui-input-inline" style="width:300px">
-              <select name="类型" multiple="" >
-                <option selected value="q">全部</option>
+              <select name="type" multiple="" lay-verify="required">
+                <option  value="a">全部</option>
                 <option  value="m">男性</option>
                 <option  value="w">女性</option>
                 <option  value="f">不合格</option>
@@ -148,7 +150,7 @@
           shadeClose: true,
           area: [openWH[0] + 'px', openWH[1] + 'px'],
           offset: [openWH[2] + 'px', openWH[3] + 'px'],
-          content: content,
+          content: content
         });
         $(window).on("resize", function () {
           layer.full(index);

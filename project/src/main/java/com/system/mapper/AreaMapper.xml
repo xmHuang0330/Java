@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 名称空间，指定对哪个接口进行映射-->
+<mapper namespace="com.system.mapper.AreaMapper">
+    <!--
+        select 表示执行查询sql
+            id 唯一； 必须与接口中方法名称一致。
+            resultType 表示执行查询SQL封装的实体类对象。如果放回集合，只需要指定集合中元素的类型即可。
+            标签体中存放要执行的select语句 
+    -->
+
+  <insert id="addArea" parameterType="java.lang.String">
+    insert into area values (#{param1})
+  </insert>
+
+  <insert id="addAreaBatch" parameterType="java.lang.Object">
+    insert into area_batch (`name`,batch,batch_count) values (#{param1},#{param2},#{param3})
+  </insert>
+
+  <insert id="updateAreaBatch" parameterType="java.lang.Object">
+    update area_batch set batch = #{param2},batch_count = #{param3} where `name` = #{param1}
+  </insert>
+</mapper>

@@ -4,6 +4,7 @@ import com.system.enums.ResultEnum;
 import com.system.mapper.DataMapper;
 import com.system.pojo.BasicInfo;
 import com.system.pojo.ResultInfo;
+import com.system.pojo.SearchInfo;
 import com.system.utils.ExcelUtil;
 import com.system.utils.ToolUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -51,59 +52,45 @@ public class DataService {
     return map;
   }
 
-  public ResultInfo search(BasicInfo basicInfo) {
+
+  public void typeOf(SearchInfo searchInfo) {
+
+
+  }
+
+  public void typeOf(String project,String type) {
+
+  }
+  public void typeOf(String project,String type,String name) {
+
+  }
+
+  public void typeOf(String project,String type,String name,String tablet) {
+
+  }
+
+  public ResultInfo search(SearchInfo searchInfo) {
     ResultInfo resultInfo = new ResultInfo();
     List<Map<String, Object>> basicInfos = null;
-    if (toolUtil.isInit(basicInfo)) {
-      List<Map<String, Object>> basicInfos1 = dataMapper.find();
-      resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
-      resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
-      resultInfo.setCount(basicInfos1.size());
-      resultInfo.setData(basicInfos1);
-    } else if (toolUtil.isEmpty(basicInfo)) {
-      resultInfo.setCode(ResultEnum.SearchInfoEmpty.getCode());
-      resultInfo.setMsg(ResultEnum.SearchInfoEmpty.getMsg());
-      resultInfo.setData(null);
-    } else if (toolUtil.isNull(basicInfo)) {
-      resultInfo.setCode(ResultEnum.SearchInfoIsnull.getCode());
-      resultInfo.setMsg(ResultEnum.SearchInfoIsnull.getMsg());
-      resultInfo.setData(null);
-    } else {
-      List<Map<String, Object>> basicInfos1 = searchDetails(basicInfo);
-      resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
-      resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
-      resultInfo.setCount(basicInfos.size());
-      resultInfo.setData(basicInfos);
+    Boolean init = toolUtil.isInit(searchInfo);
+    System.out.println(init);
+    if (init) {
+      basicInfos = dataMapper.find();
+    } else if (toolUtil.hasTablet(searchInfo) && toolUtil.hasName(searchInfo)) {
+
+    } else if (toolUtil.hasTablet(searchInfo) && !toolUtil.hasName(searchInfo)){
+
+    }else if (!toolUtil.hasTablet(searchInfo) && toolUtil.hasName(searchInfo)){
+
     }
+    resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
+    resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
+    resultInfo.setCount(basicInfos.size());
+    resultInfo.setData(basicInfos);
     return resultInfo;
   }
 
-  public List<Map<String, Object>> searchDetails(BasicInfo basicInfo) {
-    List<Integer> standard = standard(basicInfo);
-    int a36 = standard.get(0);
-    int y45 = standard.get(1);
-    List<Map<String, Object>> basicInfos = null;
-    if (!basicInfo.getName().equals("") && basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
-      basicInfos = dataMapper.searchByName("%" + basicInfo.getName() + "%", a36, y45);
-    } else if (basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
-      basicInfos = dataMapper.searchByLane("%" + basicInfo.getLane() + "%", a36, y45);
-    } else if (basicInfo.getName().equals("") && basicInfo.getLane().equals("") && !basicInfo.getTablet().equals("")){
-      basicInfos = dataMapper.searchByTablet("%" + basicInfo.getTablet() + "%", a36, y45);
-    } else if (basicInfo.getName().equals("") && basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
-      basicInfos = dataMapper.searchByAY(a36, y45);
-    } else if (!basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && !basicInfo.getTablet().equals("")) {
-      basicInfos = dataMapper.searchByBasic("%" + basicInfo.getName() + "%", "%" + basicInfo.getLane() + "%", "%" + basicInfo.getTablet() + "%", a36, y45);
-    } else if (!basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && basicInfo.getTablet().equals("")) {
-      basicInfos = dataMapper.searchByNL("%" + basicInfo.getName() + "%", "%" + basicInfo.getLane() + "%", a36, y45);
-    } else if (!basicInfo.getName().equals("") && basicInfo.getLane().equals("") && !basicInfo.getTablet().equals("")) {
-      basicInfos = dataMapper.searchByNT("%" + basicInfo.getName() + "%", "%" + basicInfo.getTablet() + "%", a36, y45);
-    } else if (basicInfo.getName().equals("") && !basicInfo.getLane().equals("") && !basicInfo.getTablet().equals("")) {
-      basicInfos = dataMapper.searchByLT("%" + basicInfo.getLane() + "%", "%" + basicInfo.getTablet() + "%", a36, y45);
-    }
-    return basicInfos;
-  }
-
-  public List<Integer> standard(BasicInfo basicInfo) {
+  /*public List<Integer> standard(BasicInfo basicInfo) {
     ArrayList<Integer> integers = new ArrayList<>();
     int a36 = 27,y45 = 35;
     Integer a361 = basicInfo.getA36();
@@ -113,7 +100,9 @@ public class DataService {
     integers.add(0,a36);
     integers.add(1,y45);
     return integers;
-  }
+  }*/
+
+
 
 
   public ResultInfo info() {

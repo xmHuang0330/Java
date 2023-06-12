@@ -86,4 +86,21 @@
           AND y45 >= #{param4}
   </select>
 
+  <select id="searchAll" resultType="java.util.HashMap">
+
+     select area_batch.batch from area_batch where name = #{param1}
+  </select>
+
+  <select id="searchMan" resultType="java.util.HashMap">
+
+  </select>
+
+  <select id="searchWomen" resultType="java.util.HashMap">
+
+  </select>
+
+  <select id="searchFail" resultType="java.util.HashMap">
+
+  </select>
+
 </mapper>

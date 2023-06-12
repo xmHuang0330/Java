@@ -27,6 +27,6 @@
   </select>
 
   <delete id="deleteByChip" parameterType="java.lang.String" >
-    DELETE FROM tablet_information where chip LIKE concat(#{param1},'%')
+    DELETE FROM tablet_information where chip LIKE concat(#{param1},'_%')
   </delete>
 </mapper>

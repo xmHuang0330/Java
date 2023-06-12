@@ -57,3 +57,17 @@ index：index int(6)
 板位：well varchar(5)
 ```
 
+### area
+
+```
+name
+```
+
+### area_batch
+
+```
+name
+batch
+batch_count
+```
+
