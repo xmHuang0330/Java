@@ -13,29 +13,6 @@ public interface DataMapper {
 
   List<Map<String, Object>> find();
 
-  List<Map<String, Object>> searchByAY(Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchByName(String name, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchByLane(String lane, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchByTablet(String tablet, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchByNL(String name, String lane, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchByNT(String name, String tablet, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchByLT(String lane, String tablet, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchByBasic(String name, String lane, String tablet, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchAll(String project, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchMan(String project, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchWomen(String project, Integer a36, Integer y45);
-
-  List<Map<String, Object>> searchFail(String project);
-
+  List<Map<String, Object>> searchByPTTN(String project,String name,String tablet,String type);
 
 }

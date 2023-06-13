@@ -33,6 +33,9 @@ public class DataService {
   @Autowired
   ToolUtil toolUtil;
 
+  @Autowired
+  ResultInfo resultInfo;
+
 
   public Map<String, Object> uploadByExcel(MultipartFile file) throws Exception {
     Boolean judge = judge(file);
@@ -41,63 +44,33 @@ public class DataService {
       map.put(ResultEnum.ERROR.getCode()+"", ResultEnum.ERROR.getMsg() + " 上传文件不是以.xlsx结尾的");
       return map;
     }
-    List<BasicInfo> basicInfoList = getInfo(file);
+    System.out.println(file.getOriginalFilename());
+    if (file.getOriginalFilename().contains("样本信息表")) {
+      excelUtil.getSampleInfo(file);
+    }
+    /*List<BasicInfo> basicInfoList = getInfo(file);
     int i = dataMapper.insertDataBatch(basicInfoList);
     int size = basicInfoList.size();
     if (i == size) map.put(ResultEnum.SUCCESS.getCode()+"", ResultEnum.SUCCESS.getMsg() + "，成功插入数据量：" + i);
-    else map.put(ResultEnum.ERROR.getCode()+"", ResultEnum.ERROR.getMsg() + "共：" + size + " 插入：" + i);
+    else map.put(ResultEnum.ERROR.getCode()+"", ResultEnum.ERROR.getMsg() + "共：" + size + " 插入：" + i);*/
     return map;
   }
 
-
-  public void typeOf(SearchInfo searchInfo) {
-
+  public void getSampleInfo(MultipartFile file) throws Exception {
 
   }
 
-  public void typeOf(String project,String type) {
-
-  }
-  public void typeOf(String project,String type,String name) {
-
-  }
-
-  public void typeOf(String project,String type,String name,String tablet) {
-
-  }
 
   public ResultInfo search(SearchInfo searchInfo) {
-    ResultInfo resultInfo = new ResultInfo();
     List<Map<String, Object>> basicInfos = null;
     Boolean init = toolUtil.isInit(searchInfo);
-    System.out.println(init);
-    if (init) {
-      basicInfos = dataMapper.find();
-    } else if (toolUtil.hasTablet(searchInfo) && toolUtil.hasName(searchInfo)) {
-
-    } else if (toolUtil.hasTablet(searchInfo) && !toolUtil.hasName(searchInfo)){
-
-    }else if (!toolUtil.hasTablet(searchInfo) && toolUtil.hasName(searchInfo)){
-
-    }
+    basicInfos = dataMapper.searchByPTTN(searchInfo.getProject(), searchInfo.getName(), searchInfo.getTablet(), searchInfo.getType());
     resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
     resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
     resultInfo.setCount(basicInfos.size());
     resultInfo.setData(basicInfos);
     return resultInfo;
   }
-
-  /*public List<Integer> standard(BasicInfo basicInfo) {
-    ArrayList<Integer> integers = new ArrayList<>();
-    int a36 = 27,y45 = 35;
-    Integer a361 = basicInfo.getA36();
-    Integer y451 = basicInfo.getY45();
-    if (a361 != null) a36 = a361;
-    if (y451 != null) y45 = y451;
-    integers.add(0,a36);
-    integers.add(1,y45);
-    return integers;
-  }*/
 
 
 

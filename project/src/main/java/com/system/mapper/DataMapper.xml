@@ -34,73 +34,10 @@
     SELECT * FROM basic
   </select>
 
-  <select id="searchByName" resultType="java.util.HashMap">
-    SELECT * FROM
-    (SELECT  * FROM `basic` WHERE a36 > #{param2} and y45 > #{param3}) success
-    WHERE `name` LIKE #{param1}
-  </select>
-
-  <select id="searchByAY" resultType="java.util.HashMap">
-    SELECT  * FROM `basic` WHERE a36 >= #{param1} and y45 >= #{param2}
-  </select>
-
-  <select id="searchByLane" resultType="java.util.HashMap">
-    SELECT * FROM
-    (SELECT  * FROM `basic` WHERE a36 >= #{param2} and y45 >= #{param3}) success
-    WHERE `lane` LIKE #{param1}
-  </select>
-
-  <select id="searchByTablet" resultType="java.util.HashMap">
-    SELECT * FROM
-    (SELECT  * FROM `basic` WHERE a36 >= #{param2} and y45 >= #{param3}) success
-    WHERE `tablet` LIKE #{param1}
-  </select>
-
-  <select id="searchByNL" resultType="java.util.HashMap">
-    SELECT * FROM
-      (SELECT * FROM
-        (SELECT  * FROM `basic` WHERE a36 >= #{param3} and y45 >= #{param4}) success
-      WHERE `lane` LIKE #{param2}) success1
-    WHERE `name` LIKE #{param1}
-  </select>
-
-  <select id="searchByNT" resultType="java.util.HashMap">
-    SELECT * FROM
-      (SELECT * FROM
-        (SELECT  * FROM `basic` WHERE a36 >= #{param3} and y45 >= #{param4}) success
-      WHERE `tablet` LIKE #{param2}) success1
-    WHERE `name` LIKE #{param1}
-  </select>
-
-  <select id="searchByLT" resultType="java.util.HashMap">
-    SELECT * FROM
-      (SELECT * FROM
-        (SELECT  * FROM `basic` WHERE a36 >= #{param3} and y45 >= #{param4}) success
-      WHERE `tablet` LIKE #{param2}) success1
-    WHERE `lane` LIKE #{param1}
-  </select>
-
-  <select id="searchByBasic" resultType="java.util.HashMap">
-     SELECT  * FROM `basic` WHERE `name` LIKE #{param1}
-        AND lane LIKE #{param2} AND tablet LIKE #{param3} AND a36 >= #{param4}
-          AND y45 >= #{param4}
-  </select>
-
-  <select id="searchAll" resultType="java.util.HashMap">
-
-     select area_batch.batch from area_batch where name = #{param1}
-  </select>
-
-  <select id="searchMan" resultType="java.util.HashMap">
+  <select id="searchByPTTN" resultType="java.util.HashMap">
 
   </select>
 
-  <select id="searchWomen" resultType="java.util.HashMap">
 
-  </select>
-
-  <select id="searchFail" resultType="java.util.HashMap">
-
-  </select>
 
 </mapper>
