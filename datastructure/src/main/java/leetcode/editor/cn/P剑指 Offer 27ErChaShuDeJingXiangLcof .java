@@ -52,7 +52,7 @@ public class P剑指 Offer 27ErChaShuDeJingXiangLcof{
  */
 class Solution {
     public TreeNode mirrorTree(TreeNode root) {
-      if (root == null) return root;
+      if (root == null) return null;
       TreeNode temp = root.right;
       root.right = mirrorTree(root.left);
       root.left = mirrorTree(temp);
