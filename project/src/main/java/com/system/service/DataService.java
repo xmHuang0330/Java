@@ -40,19 +40,20 @@ public class DataService {
   public Map<String, Object> uploadByExcel(MultipartFile file) throws Exception {
     Boolean judge = judge(file);
     Map<String, Object> map = new HashMap<>();
+    int i = 0;
     if (!judge) {
       map.put(ResultEnum.ERROR.getCode()+"", ResultEnum.ERROR.getMsg() + " 上传文件不是以.xlsx结尾的");
       return map;
     }
     System.out.println(file.getOriginalFilename());
     if (file.getOriginalFilename().contains("样本信息表")) {
-      excelUtil.getSampleInfo(file);
+      i = dataMapper.insertSampleInfo(excelUtil.getSampleInfo(file));
+    } else {
+      List<BasicInfo> basicInfoList = getInfo(file);
+      i = dataMapper.insertDataBatch(basicInfoList);
     }
-    /*List<BasicInfo> basicInfoList = getInfo(file);
-    int i = dataMapper.insertDataBatch(basicInfoList);
-    int size = basicInfoList.size();
-    if (i == size) map.put(ResultEnum.SUCCESS.getCode()+"", ResultEnum.SUCCESS.getMsg() + "，成功插入数据量：" + i);
-    else map.put(ResultEnum.ERROR.getCode()+"", ResultEnum.ERROR.getMsg() + "共：" + size + " 插入：" + i);*/
+
+    map.put(ResultEnum.SUCCESS.getCode()+"", ResultEnum.SUCCESS.getMsg() + "，成功插入数据量：" + i);
     return map;
   }
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--namespace 名称空间，指定对哪个接口进行映射-->
 <mapper namespace="com.system.mapper.DataMapper">
-    <!--
-        select 表示执行查询sql
-            id 唯一； 必须与接口中方法名称一致。
-            resultType 表示执行查询SQL封装的实体类对象。如果放回集合，只需要指定集合中元素的类型即可。
-            标签体中存放要执行的select语句 
-    -->
+  <!--
+      select 表示执行查询sql
+          id 唯一； 必须与接口中方法名称一致。
+          resultType 表示执行查询SQL封装的实体类对象。如果放回集合，只需要指定集合中元素的类型即可。
+          标签体中存放要执行的select语句
+  -->
 
   <resultMap id="dataMap" type="com.system.pojo.BasicInfo">
     <result property="name" column="name"/>
@@ -23,21 +23,28 @@
     <result property="y45" column="y45"/>
   </resultMap>
 
-    <insert id="insertDataBatch" parameterType="java.util.List">
-      INSERT INTO basic (`name`,lane,`index`,tablet,stutter,well,a36,y45) VALUES
-      <foreach collection="list" separator="," item="sample">
-        (#{sample.name},#{sample.lane},#{sample.index},#{sample.tablet},#{sample.stutter},#{sample.well},#{sample.a36},#{sample.y45})
-      </foreach>
-    </insert>
 
   <select id="find" resultType="java.util.HashMap">
     SELECT * FROM basic
   </select>
 
+  <insert id="insertDataBatch" parameterType="java.util.List">
+    INSERT INTO basic (`name`,lane,`index`,tablet,stutter,well,a36,y45) VALUES
+    <foreach collection="list" separator="," item="sample">
+      (#{sample.name},#{sample.lane},#{sample.index},#{sample.tablet},#{sample.stutter},#{sample.well},#{sample.a36},#{sample.y45})
+    </foreach>
+  </insert>
+
+  <insert id="insertSampleInfo" parameterType="java.util.List">
+    INSERT INTO sample_information (chip, lane, index_, tablet, name, project_name, well) VALUES
+    <foreach collection="list" separator="," item="sample">
+      (#{sample.chip},#{sample.lane},#{sample.index},#{sample.tablet},#{sample.name},#{sample.projectName},#{sample.well})
+    </foreach>
+  </insert>
+
   <select id="searchByPTTN" resultType="java.util.HashMap">
 
   </select>
-
 
 
 </mapper>

@@ -69,7 +69,7 @@ public class ExcelUtil {
     return workbook.getSheet("上机记录").getRow(13).getCell(1).getStringCellValue();
   }
 
-  public void getSampleInfo(MultipartFile file) throws Exception {
+  public ArrayList<SampleInfo> getSampleInfo(MultipartFile file) throws Exception {
     ArrayList<SampleInfo> sampleInfos = new ArrayList<>();
     XSSFWorkbook workBook = (XSSFWorkbook)getWorkBook(file).get(1);
     String chip = getChip(workBook);
@@ -86,7 +86,9 @@ public class ExcelUtil {
         if (row.getCell(2).getCellType() == CellType._NONE) name = " ";
         else if (row.getCell(2).getCellType() == CellType.NUMERIC) name = row.getCell(2).getNumericCellValue() + "";
         else name = row.getCell(2).getStringCellValue();
-        String project = row.getCell(3).getStringCellValue();
+        String project = null;
+        if (row.getCell(3).getCellType() == CellType._NONE) project = "";
+        else project = row.getCell(3).getStringCellValue();
         String well = null;
         if (row.getCell(7).getCellType() == CellType._NONE) well = "";
         else well = row.getCell(7).getStringCellValue();
@@ -102,5 +104,6 @@ public class ExcelUtil {
       }
     }
     int size = sampleInfos.size();
+    return sampleInfos;
   }
 }

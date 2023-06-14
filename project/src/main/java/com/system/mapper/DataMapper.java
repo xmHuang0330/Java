@@ -1,6 +1,7 @@
 package com.system.mapper;
 
 import com.system.pojo.BasicInfo;
+import com.system.pojo.SampleInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Map;
 public interface DataMapper {
 
   int insertDataBatch(List<BasicInfo> basicInfoList);
+
+  int insertSampleInfo(List<SampleInfo> sampleInfoList);
 
   List<Map<String, Object>> find();
 
