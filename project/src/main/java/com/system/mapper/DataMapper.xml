@@ -12,7 +12,7 @@
           标签体中存放要执行的select语句
   -->
 
-  <resultMap id="dataMap" type="com.system.pojo.BasicInfo">
+  <resultMap id="dataMap" type="basicInfo">
     <result property="name" column="name"/>
     <result property="lane" column="lane"/>
     <result property="index" column="index"/>
@@ -36,14 +36,32 @@
   </insert>
 
   <insert id="insertSampleInfo" parameterType="java.util.List">
-    INSERT INTO sample_information (chip, lane, index_, tablet, name, project_name, well) VALUES
+    INSERT INTO sample_information (chip, lane, index_, tablet, name, pre_name, project_name, well) VALUES
     <foreach collection="list" separator="," item="sample">
-      (#{sample.chip},#{sample.lane},#{sample.index},#{sample.tablet},#{sample.name},#{sample.projectName},#{sample.well})
+      (#{sample.chip},#{sample.lane},#{sample.index},#{sample.tablet},#{sample.name},#{sample.preName},#{sample.projectName},#{sample.well})
     </foreach>
   </insert>
 
-  <select id="searchByPTTN" resultType="java.util.HashMap">
-
+  <select id="searchByPTTN" resultType="java.util.HashMap" parameterType="searchInfo">
+    select * from basic where tablet in
+    (select distinct tablet from sample_information where project_name in
+    (select batch from area_batch
+    <trim prefix="where" prefixOverrides="and">
+      <if test="project == null"> `name` = "深圳市局" </if>
+      <if test="project != null"> `name` = #{project} </if>
+    </trim>
+    )
+    )
+    <trim prefix="and" prefixOverrides="and">
+      <if test="type == 'a'.toString() or type == null ">and a36 >= 0 and y45 >= 0</if>
+      <if test="type == 'm'.toString() ">and a36 >= 29 and y45 >= 39</if>
+      <if test="type == 'w'.toString() ">and a36 >= 29 and y45 = 0</if>
+      <if test="type == 'f'.toString()  ">and a36 &lt; 29</if>
+    </trim>
+    <trim prefix="and" prefixOverrides="and | or">
+      <if test='name != "" and name != null'>and `name` = #{name}</if>
+      <if test='tablet != "" and tablet != null'>and `tablet` = #{tablet}</if>
+    </trim>
   </select>
 
 

@@ -16,8 +16,16 @@ public class SampleInfo {
   private String tablet;
   private String name;
   private String projectName;
+  private String preName;
   private String well;
 
+  public String getPreName() {
+    return preName;
+  }
+
+  public void setPreName(String preName) {
+    this.preName = preName;
+  }
 
   public String getChip() {
     return chip;

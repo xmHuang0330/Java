@@ -1,5 +1,7 @@
 package com.system.utils;
 
+import com.system.pojo.ChemicalInfo;
+import com.system.pojo.ChipInfo;
 import com.system.pojo.SampleInfo;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -9,11 +11,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class ExcelUtil {
@@ -69,9 +71,31 @@ public class ExcelUtil {
     return workbook.getSheet("上机记录").getRow(13).getCell(1).getStringCellValue();
   }
 
+  public void getChemicalInfo(XSSFWorkbook workbook, String chip) throws Exception {
+    ArrayList<ChemicalInfo> chemicalInfoList = new ArrayList<>();
+    XSSFSheet sheet = workbook.getSheet("上机记录");
+    HashMap<String, LinkedList<Object>> map = new HashMap<>();
+    int i = 1;
+    int j = 1;
+    int lastCellNum = sheet.getRow(i).getLastCellNum();
+    CellType cellType = null;
+    System.out.println(lastCellNum);
+    while (i < 5) {
+      XSSFRow row = sheet.getRow(i);
+      ChemicalInfo chemicalInfo = new ChemicalInfo();
+      chemicalInfo.setChip(chip);
+      chemicalInfo.setLane(row.getCell(1).getStringCellValue());
+      chemicalInfo.setCyclizingWay(row.getCell(2).getStringCellValue());
+      chemicalInfo.setLibraryDensity(row.getCell(3).getNumericCellValue());
+      i++;
+    }
+  }
+
   public ArrayList<SampleInfo> getSampleInfo(MultipartFile file) throws Exception {
     ArrayList<SampleInfo> sampleInfos = new ArrayList<>();
-    XSSFWorkbook workBook = (XSSFWorkbook)getWorkBook(file).get(1);
+    ArrayList list = getWorkBook(file);
+    XSSFWorkbook workBook = (XSSFWorkbook) list.get(1);
+    FileInputStream fis = (FileInputStream)list.get(0);
     String chip = getChip(workBook);
     String[] sheets = new String[]{"lane1", "lane2", "lane3", "lane4"};
     for (String lane :
@@ -87,8 +111,15 @@ public class ExcelUtil {
         else if (row.getCell(2).getCellType() == CellType.NUMERIC) name = row.getCell(2).getNumericCellValue() + "";
         else name = row.getCell(2).getStringCellValue();
         String project = null;
-        if (row.getCell(3).getCellType() == CellType._NONE) project = "";
-        else project = row.getCell(3).getStringCellValue();
+        String projectName = null;
+        if (row.getCell(3).getCellType() == CellType._NONE) {
+          project = "";
+          projectName = "";
+        } else {
+          project = StringUtils.substringBefore(row.getCell(3).getStringCellValue(),"-");
+          projectName = StringUtils.substringAfter(row.getCell(3).getStringCellValue(),"-");
+
+        }
         String well = null;
         if (row.getCell(7).getCellType() == CellType._NONE) well = "";
         else well = row.getCell(7).getStringCellValue();
@@ -98,12 +129,15 @@ public class ExcelUtil {
         sampleInfo.setIndex(index);
         sampleInfo.setTablet(tablet);
         sampleInfo.setName(name);
-        sampleInfo.setProjectName(project);
+        sampleInfo.setPreName(project);
+        sampleInfo.setProjectName(projectName);
         sampleInfo.setWell(well);
         sampleInfos.add(sampleInfo);
       }
     }
-    int size = sampleInfos.size();
+    getChemicalInfo(workBook,chip);
+    workBook.close();
+    fis.close();
     return sampleInfos;
   }
 }

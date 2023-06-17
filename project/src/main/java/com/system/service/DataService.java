@@ -1,5 +1,8 @@
 package com.system.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.system.enums.ResultEnum;
 import com.system.mapper.DataMapper;
 import com.system.pojo.BasicInfo;
@@ -48,6 +51,7 @@ public class DataService {
     System.out.println(file.getOriginalFilename());
     if (file.getOriginalFilename().contains("样本信息表")) {
       i = dataMapper.insertSampleInfo(excelUtil.getSampleInfo(file));
+
     } else {
       List<BasicInfo> basicInfoList = getInfo(file);
       i = dataMapper.insertDataBatch(basicInfoList);
@@ -57,19 +61,14 @@ public class DataService {
     return map;
   }
 
-  public void getSampleInfo(MultipartFile file) throws Exception {
-
-  }
-
 
   public ResultInfo search(SearchInfo searchInfo) {
-    List<Map<String, Object>> basicInfos = null;
-    Boolean init = toolUtil.isInit(searchInfo);
-    basicInfos = dataMapper.searchByPTTN(searchInfo.getProject(), searchInfo.getName(), searchInfo.getTablet(), searchInfo.getType());
+    List<Map<String, Object>> maps = dataMapper.searchByPTTN(searchInfo);
     resultInfo.setCode(ResultEnum.SearchSuccess.getCode());
     resultInfo.setMsg(ResultEnum.SearchSuccess.getMsg());
-    resultInfo.setCount(basicInfos.size());
-    resultInfo.setData(basicInfos);
+    resultInfo.setCount(maps.size());
+    resultInfo.setData(maps);
+    System.out.println(maps.size());
     return resultInfo;
   }
 

@@ -28,6 +28,7 @@
 
 ```
 芯片号：chip varchar(20)
+lane号：lane varchar(10)
 有关项目：project varchar(50)
 实验人员：members varchar(20)
 上机时间：start_time vatchar(50)

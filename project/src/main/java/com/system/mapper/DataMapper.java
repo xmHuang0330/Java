@@ -2,6 +2,7 @@ package com.system.mapper;
 
 import com.system.pojo.BasicInfo;
 import com.system.pojo.SampleInfo;
+import com.system.pojo.SearchInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface DataMapper {
 
   List<Map<String, Object>> find();
 
-  List<Map<String, Object>> searchByPTTN(String project,String name,String tablet,String type);
+  List<Map<String, Object>> searchByPTTN(SearchInfo searchInfo);
 
 }
