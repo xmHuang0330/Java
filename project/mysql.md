@@ -15,13 +15,10 @@
 
 ```
 芯片号：chip varchar(20)
-芯片上机数量：start_count int(20)
-芯片下机数量：end_count int(20)
-样本号重复数量：repeat_count int(20)
-合格男性：man int(5)
-合格女性：women int(5)
-不合格：failure int(5)
-芯片成功率：lane_success_rate varchar(10)
+有关项目：project varchar(50)
+上机时间：start_time vatchar(50)
+上机地点：location vatchar(100)
+下机时间：end_time vatchar(50)
 ```
 
 ### chemical_information
@@ -29,11 +26,6 @@
 ```
 芯片号：chip varchar(20)
 lane号：lane varchar(10)
-有关项目：project varchar(50)
-实验人员：members varchar(20)
-上机时间：start_time vatchar(50)
-上机地点：location vatchar(100)
-下机时间：end_time vatchar(50)
 环化方式：cyclizing varchar(50)
 文库浓度：library_density double
 环化反应投入量：cyclizing_input double
